@@ -35,6 +35,8 @@ body {
 
 #group-1 div {
   position: absolute;
+  left: 10px;
+
 }
 
 #group-2 {
@@ -76,16 +78,13 @@ body {
     align-items: center;
     justify-content: start;
   }
-  #group-1 svg {
+  #group-1 img {
     position: relative;
     left: 10px;
     height: 20px;
     width: 100px;
   }
-  #group-1 #custom-svg {
-    height: 5%;
-    width: 30px;
-  }
+
   #group-2 {
    position: relative;
    display: flex;

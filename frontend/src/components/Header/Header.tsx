@@ -1,10 +1,10 @@
-import AccountLogo from "../../images/AccountLogo"
-import CompassLogo from "../../images/CompassLogo"
-import CompassName from "../../images/CompassName"
-import HeartImage from "../../images/HeartImage"
-import MagnifyingGlassImage from "../../images/MagnifyingGlassImage"
-import ShoppingCartImage from "../../images/ShoppingCartImage"
+import AccountLogo from "../../images/mdi_account-alert-outline.svg"
+import HeartImage from "../../images/akar-icons_heart.svg"
+import LogoSvg from '../../images/Frame 168.svg'
+import IconSearch from "../../images/akar-icons_search.svg"
+import ShoppingCartImage from "../../images/ant-design_shopping-cart-outlined.svg"
 import './Header.css'
+
 
 function Header() {
     return (
@@ -12,8 +12,7 @@ function Header() {
         <div id="groups">
           <div id='group-1'>
             <div>
-           <CompassLogo/>
-           <CompassName/>
+            <img src={LogoSvg} alt=""/>
            </div>
           </div>
            
@@ -27,10 +26,10 @@ function Header() {
           </div>
           
           <div id="group-3">
-            <AccountLogo/>
-            <MagnifyingGlassImage/>
-            <HeartImage/>
-            <ShoppingCartImage/>
+            <img src={AccountLogo} alt=""/>
+            <img src={IconSearch} alt=""/>
+            <img src={HeartImage} alt=""/>
+            <img src={ShoppingCartImage} alt=""/>
           </div>
         </div>
      </header>
