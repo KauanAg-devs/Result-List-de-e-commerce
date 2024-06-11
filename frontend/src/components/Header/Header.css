@@ -58,7 +58,7 @@
   color: #000;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 730px) {
   #groups {
     height: 40%;
     flex-direction: column;
