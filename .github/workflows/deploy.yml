@@ -19,19 +19,15 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: |
-          cd frontend
-          npm install
+        run: npm install
 
       - name: Build React app
-        run: |
-          cd frontend
-          npm run build
+        run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./frontend/build  
-          user_name: ${{ github.actor }}
-          user_email: ${{ github.actor }}@users.noreply.github.com
+          publish_dir: ./build
+          user_name: ${{ secrets.GH_USERNAME }}
+          user_email: ${{ secrets.GH_USERNAME }}@users.noreply.github.com
