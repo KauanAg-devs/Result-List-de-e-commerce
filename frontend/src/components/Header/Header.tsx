@@ -9,29 +9,27 @@ import './Header.css'
 function Header() {
     return (
      <header id='header'>
-        <div id="groups">
-          <div id='group-1'>
-            <div>
-            <img src={LogoSvg} alt=""/>
-           </div>
-          </div>
-           
-          <div id="group-2">
-            <div>
-            <h1 id="home">Home</h1>
-            <h1 id="shop">Shop</h1>
-            <h1 id="about">About</h1>
-            <h1 id="contact">Contact</h1>
+
+            <div className="group-1">
+              <img src={LogoSvg} alt=""/>
             </div>
-          </div>
-          
-          <div id="group-3">
-            <img src={AccountLogo} alt=""/>
-            <img src={IconSearch} alt=""/>
-            <img src={HeartImage} alt=""/>
-            <img src={ShoppingCartImage} alt=""/>
-          </div>
-        </div>
+
+            <div className="group-2">
+              <h1 id="home">Home</h1>
+              <h1 id="shop">Shop</h1>
+              <h1 id="about">About</h1>
+              <h1 id="contact">Contact</h1>
+            </div>
+
+            <div className="group-3">
+              <div>
+              <img src={AccountLogo} alt=""/>
+              <img src={IconSearch} alt=""/>
+              <img src={HeartImage} alt=""/>
+              <img src={ShoppingCartImage} alt=""/>
+              </div>     
+            </div>  
+
      </header>
     )
 }
