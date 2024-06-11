@@ -1,4 +1,4 @@
-function CompassNameImage() {
+function CompassName() {
     return (
         <>
         <svg width="162" height="32" viewBox="0 0 162 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,4 +11,4 @@ function CompassNameImage() {
     )
 }
 
-export default CompassNameImage
+export default CompassName

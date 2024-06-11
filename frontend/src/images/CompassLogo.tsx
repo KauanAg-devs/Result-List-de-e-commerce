@@ -1,7 +1,7 @@
-function CompassImage() {
+function CompassLogo() {
     return (
         <>
-        <svg width="51" height="33" viewBox="0 0 51 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+        <svg  id="custom-svg" width="51" height="33" viewBox="0 0 51 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
           <rect x="0.5" y="0.5" width="50" height="32" fill="url(#pattern0_93_19)"/>
           <defs>
           <pattern id="pattern0_93_19" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -15,4 +15,4 @@ function CompassImage() {
     )
 }
 
-export default CompassImage
+export default CompassLogo
