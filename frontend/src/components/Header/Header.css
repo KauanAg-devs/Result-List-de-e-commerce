@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#header {
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#groups {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+#group-1, #group-2, #group-3 {
+  display: flex;
+  align-items: center;
+}
+
+#group-1 {
+  width: 30%;
+}
+
+#group-1 div {
+  position: absolute;
+}
+
+#group-2 {
+  width: 40%;
+  justify-content: space-evenly;
+}
+
+#group-2 div {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#group-3 {
+  width: 30%;
+  justify-content: space-evenly;
+}
+
+#home, #shop, #about, #contact {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 24px;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  #groups {
+    height: 40%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #group-1{
+    position: relative;
+    width: 100%;
+    height: 45px;
+    align-items: center;
+    justify-content: start;
+  }
+  #group-1 svg {
+    position: relative;
+    left: 10px;
+    height: 20px;
+    width: 100px;
+  }
+  #group-1 #custom-svg {
+    height: 5%;
+    width: 30px;
+  }
+  #group-2 {
+   position: relative;
+   display: flex;
+   width: 100%;
+   height: 45px;
+   justify-content: center;
+  }
+   #group-3 {
+   width: 70%;
+   height: 60px;
+   justify-content: space-between;
+  }
+
+}
+
+@media (max-width: 480px) {
+  #header {
+    height: auto;
+    padding: 10px 0;
+  }
+
+  #home, #shop, #about, #contact {
+    font-size: 16px;
+  }
+}
