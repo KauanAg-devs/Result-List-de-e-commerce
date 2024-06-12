@@ -1,7 +1,8 @@
 import './Main.css'
 import Filter from '../../images/Group 57.svg'
 import VerticalLine from '../../images/Line 5.svg'
-function Main() {
+
+function Main(): JSX.Element {
  return (
     <main id="main">
         <div id="filter">
