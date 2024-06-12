@@ -1,9 +1,7 @@
 import './Navigation.css'
 
-function Navigation() {
-
+function Navigation(): JSX.Element {
     return <nav id="nav"></nav>
-    
 }
 
 export default Navigation;

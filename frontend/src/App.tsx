@@ -1,8 +1,9 @@
 import './App.css';
 import Header from './components/Header/Header';
-import Main from './components/Main/Main';
 import Navigation from './components/Navigation/Navigation';
+import Main from './components/Main/Main';
 import QualityBar from './components/QualityBar/QualityBar';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
      <Navigation/>
      <Main/>
      <QualityBar/>
+     <Footer/>
     </div>
   );
 }

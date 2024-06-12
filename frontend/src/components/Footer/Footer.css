@@ -1,0 +1,98 @@
+#footer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 50%;
+}
+
+#footer-data {
+    display: flex;
+    position: relative;
+    align-items: stretch; 
+    width: 100%;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+#footer-local, #footer-links, #footer-help, #footer-newsletter {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 15vmax; 
+    margin: 10px 0;
+}
+#footer-local{
+    position: relative;
+    left: 3%;
+    flex: 0 1 25vmax;
+}
+
+#footer-links #title, #footer-help #title, #footer-newsletter #title {
+    color: #9f9f9f;
+    font-weight: 300;
+    font-size: 0.83vmax;
+}
+
+#footer-local #title {
+    position: relative;
+    font-size: 1.25vmax;
+    font-weight: 700;
+}
+
+  
+#footer-links > a, #footer-help > a, #footer-newsletter > #email-input {
+    text-decoration: none;
+    color: black;
+    padding-top: 1.9vmax;
+    font-size: 0.83vmax;
+}
+
+#footer, #footer-data, #footer-local, #footer-links, #footer-help, #footer-newsletter {
+    box-sizing: border-box;
+}
+
+
+#footer-local p {
+    color: #9f9f9f;
+    line-height: 24px;
+    font-size: 0.83vmax;
+    line-height: 0.9vmax;
+    word-wrap:break-word;
+}
+
+#footer-newsletter > #email-input {
+    display: flex;
+}
+#email-input > input[type='text'] {
+    width: 10vmax;
+    border: none;
+    text-align: start;
+    font-size: 0.75vmax;
+    outline: none;
+    padding-bottom: 0.25vmax;
+    border-bottom: 0.1vmax solid black;
+}
+
+#email-input > button {
+  position: relative;
+  font-size: 0.8vmax;
+  font-weight: 700;
+  border: none;
+  left: 2%;
+  background-color: white;
+  padding-bottom: 0.25vmax;
+  border-bottom: 0.1vmax solid black;
+}
+
+@media (max-width: 1000px) {
+    #email-input{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #email-input button {
+        margin-top: 5%;
+        width: 70%;
+    }
+}
