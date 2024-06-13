@@ -9,6 +9,8 @@ body, html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 code {

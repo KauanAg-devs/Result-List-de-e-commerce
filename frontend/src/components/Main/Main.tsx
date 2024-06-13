@@ -1,24 +1,17 @@
-import './Main.css'
-import Filter from '../../images/Group 57.svg'
-import VerticalLine from '../../images/Line 5.svg'
+import './Main.css';
+import Filter from './Filter';
+import ProductsContainer from './ProductsContainer';
+import { useState } from 'react';
 
 function Main(): JSX.Element {
- return (
-    <main id="main">
-        <div id="filter">
-            <div id='show-files'>
-              <img id='filter-img' src={Filter} alt="" />
-              <img id='vertical-line' src={VerticalLine} alt="" />
-              <h1>showing 1-16 files of 32 results </h1>
-              </div>
+  const [filterValue, setFilterValue] = useState<number | object>({});
 
-            <div id='filter-search'>
-              <h1>Show</h1>
-              <input type="text" />
-            </div>
-        </div>
+  return (
+    <main id="main">
+      <Filter setFilterValue={setFilterValue} />
+      <ProductsContainer filterValue={filterValue} />
     </main>
- )   
+  );
 }
 
-export default Main
+export default Main;
