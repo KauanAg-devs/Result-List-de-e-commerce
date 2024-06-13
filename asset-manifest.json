@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.css": "/Result-List-de-e-commerce/static/css/main.fcca0c1e.css",
-    "main.js": "/Result-List-de-e-commerce/static/js/main.d0f6c3ed.js",
+    "main.css": "/Result-List-de-e-commerce/static/css/main.feef9b72.css",
+    "main.js": "/Result-List-de-e-commerce/static/js/main.dccb36e4.js",
     "static/js/453.8ab44547.chunk.js": "/Result-List-de-e-commerce/static/js/453.8ab44547.chunk.js",
     "static/media/Group 78.svg": "/Result-List-de-e-commerce/static/media/Group 78.3ef02c47770ba5a47e86.svg",
+    "static/media/image 1.svg": "/Result-List-de-e-commerce/static/media/image 1.acb0daa45203ea816883362cdf6a074e.svg",
     "static/media/Frame 168.svg": "/Result-List-de-e-commerce/static/media/Frame 168.e08035e475052afa9a9239f14205a0a1.svg",
     "static/media/Frame 161.svg": "/Result-List-de-e-commerce/static/media/Frame 161.6f89d77509ea815425879f1d089f749b.svg",
     "static/media/Group 57.svg": "/Result-List-de-e-commerce/static/media/Group 57.895b6838368ca36f3af345e29a45ccfb.svg",
@@ -13,12 +14,12 @@
     "static/media/akar-icons_search.svg": "/Result-List-de-e-commerce/static/media/akar-icons_search.7c6a811e4cf0a1d2e6a07472300d4ae3.svg",
     "static/media/akar-icons_heart.svg": "/Result-List-de-e-commerce/static/media/akar-icons_heart.6b0a9907385f906c47f0b3fa01ada400.svg",
     "static/media/Line 5.svg": "/Result-List-de-e-commerce/static/media/Line 5.e27e8b60ada4fec536179e9caee6a7f4.svg",
-    "main.fcca0c1e.css.map": "/Result-List-de-e-commerce/static/css/main.fcca0c1e.css.map",
-    "main.d0f6c3ed.js.map": "/Result-List-de-e-commerce/static/js/main.d0f6c3ed.js.map",
+    "main.feef9b72.css.map": "/Result-List-de-e-commerce/static/css/main.feef9b72.css.map",
+    "main.dccb36e4.js.map": "/Result-List-de-e-commerce/static/js/main.dccb36e4.js.map",
     "453.8ab44547.chunk.js.map": "/Result-List-de-e-commerce/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fcca0c1e.css",
-    "static/js/main.d0f6c3ed.js"
+    "static/css/main.feef9b72.css",
+    "static/js/main.dccb36e4.js"
   ]
 }
