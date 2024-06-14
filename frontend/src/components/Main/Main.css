@@ -163,13 +163,14 @@ input[type="search"]::-webkit-search-cancel-button {
 
 #product-sections {
     width: 30vmax;
-    height: 10vh;
+    height: 10vmax;
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
 #product-section-button {
+    position: relative;
     background-color: #f9f1e7;
     height: 5vmax;
     width: 5vmax;

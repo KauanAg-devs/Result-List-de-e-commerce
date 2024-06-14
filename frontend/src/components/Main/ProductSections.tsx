@@ -16,17 +16,16 @@ function ProductSections({
   totalSections,
   showPreviousButton,
 }: ProductSectionsProps) {
-
   const startSection = (currentPage - 1) * 3 + 1;
   const endSection = Math.min(startSection + 2, totalSections);
 
   const handleClick = (section: number) => {
     handleSectionClick(section);
   };
-
+  
   return (
     <div id="product-sections">
-      {showPreviousButton && (
+      {showPreviousButton && currentPage !== 1 && (
         <button onClick={handlePreviousButtonClick} id="product-section-button">
           Previous
         </button>
