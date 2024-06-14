@@ -2,7 +2,10 @@
 
 #main {
     position: relative;
-    min-height: 250vh;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
     width: 100%;
 }
 
@@ -55,7 +58,7 @@
     outline: none;
     width: 2.5vmax;
     height: 2.5vmax;
-    font-size: 150%;
+    font-size: 1.1vmax;
     text-align: center;
     background-color: #fff; 
     color: #9f9f9f;
@@ -157,3 +160,23 @@ input[type="search"]::-webkit-search-cancel-button {
     color: #ccc;
     text-decoration: line-through;
 }
+
+#product-sections {
+    width: 30vmax;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#product-section-button {
+    background-color: #f9f1e7;
+    height: 5vmax;
+    width: 5vmax;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1vmax;
+    font-weight: 500;
+    margin-bottom: 1.5vmax;
+}
+
