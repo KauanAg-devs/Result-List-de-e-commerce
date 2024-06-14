@@ -187,6 +187,40 @@ input[type="search"]::-webkit-search-cancel-button {
     text-decoration: line-through;
 }
 
+#product-details {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 23.5vmax;
+    width: 16vmax;
+    z-index: 1;
+    margin-bottom: 5%;
+    background-color: rgba(58, 58, 58, 0.5); 
+    box-sizing: border-box;
+}
+
+#product-details-images {
+    width: 100%;
+    position: relative;
+    top: 5%;
+    display: flex;
+    justify-content: space-evenly;
+}
+#product-details-images img {
+    width: 4vmax;
+}
+#product-details button {
+    width: 75%;
+    height: 15%;
+    text-align: center;
+    align-items: center;
+    font-size: 1vmax;
+    color: #b88e2f;
+    font-weight: 600;
+    border: none;
+}
 #product-sections {
     width: 30vmax;
     height: 10vmax;
