@@ -1,18 +1,18 @@
 import React from 'react';
-import productTest from './ProductTest';
-import Product, { ProductType } from './Product';
+import { ProductType } from './Product';
+import Product from './Product';
 
 type ProductMakerProps = {
   filterValue: number; 
   currentSection: number;
+  products: ProductType[];
 };
 
-const ProductMaker: React.FC<ProductMakerProps> = ({ filterValue, currentSection }) => {
-  const productsValues: ProductType[] = [...productTest];
+const ProductMaker: React.FC<ProductMakerProps> = ({ filterValue, currentSection, products }) => {
   const startIndex = (currentSection - 1) * filterValue;
   const endIndex = startIndex + filterValue;
 
-  const filteredProducts = productsValues.slice(startIndex, endIndex);
+  const filteredProducts = products.slice(startIndex, endIndex);
 
   return (
     <>
