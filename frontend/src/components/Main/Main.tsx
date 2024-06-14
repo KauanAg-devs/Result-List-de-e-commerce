@@ -3,6 +3,8 @@ import './Main.css';
 import Filter from './Filter';
 import ProductsContainer from './ProductsContainer';
 import ProductSections from './ProductSections';
+import productTest from './ProductTest';
+import { ProductType } from './Product';
 
 function Main(): JSX.Element {
   const [filterValue, setFilterValue] = useState<number>(10); 
@@ -10,12 +12,13 @@ function Main(): JSX.Element {
   const [totalSections, setTotalSections] = useState<number>(1); 
   const [currentPage, setCurrentPage] = useState<number>(1); 
   const [showPreviousButton, setShowPreviousButton] = useState<boolean>(false); 
+  const [products, setProducts] = useState<ProductType[]>(productTest);
 
   useEffect(() => {
-    const totalProducts = 32; 
+    const totalProducts = products.length;
     const sections = Math.ceil(totalProducts / filterValue);
     setTotalSections(sections);
-  }, [filterValue]);
+  }, [filterValue, products]);
 
   const handleSectionClick = (section: number) => {
     setCurrentSection(section);
@@ -42,8 +45,8 @@ function Main(): JSX.Element {
 
   return (
     <main id="main">
-      <Filter setFilterValue={setFilterValue} />
-      <ProductsContainer filterValue={filterValue} currentSection={currentSection} />
+      <Filter setFilterValue={setFilterValue} products={products} setProducts={setProducts} />
+      <ProductsContainer filterValue={filterValue} currentSection={currentSection} products={products} />
       <ProductSections
         handleSectionClick={handleSectionClick}
         totalSections={totalSections}
