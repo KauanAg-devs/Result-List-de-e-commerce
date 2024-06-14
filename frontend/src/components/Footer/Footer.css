@@ -64,7 +64,7 @@
 #footer-newsletter > #email-input {
     display: flex;
 }
-#email-input > input[type='text'] {
+#email-input > input[type='email'] {
     width: 10vmax;
     border: none;
     text-align: start;
@@ -84,7 +84,10 @@
   padding-bottom: 0.25vmax;
   border-bottom: 0.1vmax solid black;
 }
-
+#invalid-email {
+    position: relative;
+    font-size: 0.70vmax;
+}
 @media (max-width: 1000px) {
     #email-input{
         display: flex;
