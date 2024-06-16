@@ -31,9 +31,14 @@
 
 #home, #shop, #about, #contact {
   font-weight: 500;
-  font-size: 1.1cqmax;
-  line-height: 24px;
+  font-size: 1.1vmax;
+  line-height: 12%;
   color: #000;
+
+  font-size: 0.9vmax;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
 }
 
 .group-3 {
