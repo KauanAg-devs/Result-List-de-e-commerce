@@ -1,7 +1,8 @@
+import '../css/Product.css'
 import React, { useState } from 'react';
-import ShareImage from '../../images/Frame 11.svg'
-import CompareImage from '../../images/Frame 12.svg'
-import LikeImage from '../../images/Frame 10.svg'
+import ShareImage from '../../../images/Frame 11.svg'
+import CompareImage from '../../../images/Frame 12.svg'
+import LikeImage from '../../../images/Frame 10.svg'
 
 export type ProductType = {
   image: string;

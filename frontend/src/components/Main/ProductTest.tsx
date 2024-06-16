@@ -1,5 +1,5 @@
 import productImage from '../../images/image 1.svg'
-import { ProductType } from './Product'
+import { ProductType } from './Product/Product'
 
 const productTest: ProductType[] = []
 const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'L', 'M','N', 'O', 'P', 'Q', 'R','S','U','W','X','Y','Z']
