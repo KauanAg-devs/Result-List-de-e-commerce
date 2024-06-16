@@ -1,0 +1,10 @@
+
+
+#main {
+    position: relative;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+    width: 100%;
+}
