@@ -13,6 +13,7 @@ function Footer(): JSX.Element {
             <FooterHelp/>
             <FooterNewsletter/>  
         </div>
+
     </footer>
     )
 }
