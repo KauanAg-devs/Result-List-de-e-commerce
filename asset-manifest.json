@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Result-List-de-e-commerce/static/css/main.ec9948c0.css",
-    "main.js": "/Result-List-de-e-commerce/static/js/main.863f8e7f.js",
+    "main.css": "/Result-List-de-e-commerce/static/css/main.0f651de0.css",
+    "main.js": "/Result-List-de-e-commerce/static/js/main.bb5abd00.js",
     "static/js/453.8ab44547.chunk.js": "/Result-List-de-e-commerce/static/js/453.8ab44547.chunk.js",
     "static/media/Rectangle 1.svg": "/Result-List-de-e-commerce/static/media/Rectangle 1.b9ceb03bc79eb9aef3f7.svg",
     "static/media/image 1.svg": "/Result-List-de-e-commerce/static/media/image 1.acb0daa45203ea816883362cdf6a074e.svg",
@@ -18,12 +18,12 @@
     "static/media/akar-icons_heart.svg": "/Result-List-de-e-commerce/static/media/akar-icons_heart.6b0a9907385f906c47f0b3fa01ada400.svg",
     "static/media/Line 5.svg": "/Result-List-de-e-commerce/static/media/Line 5.e27e8b60ada4fec536179e9caee6a7f4.svg",
     "static/media/dashicons_arrow-down-alt2.svg": "/Result-List-de-e-commerce/static/media/dashicons_arrow-down-alt2.e3393069408965f8b2a25dbe5e6f8425.svg",
-    "main.ec9948c0.css.map": "/Result-List-de-e-commerce/static/css/main.ec9948c0.css.map",
-    "main.863f8e7f.js.map": "/Result-List-de-e-commerce/static/js/main.863f8e7f.js.map",
+    "main.0f651de0.css.map": "/Result-List-de-e-commerce/static/css/main.0f651de0.css.map",
+    "main.bb5abd00.js.map": "/Result-List-de-e-commerce/static/js/main.bb5abd00.js.map",
     "453.8ab44547.chunk.js.map": "/Result-List-de-e-commerce/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ec9948c0.css",
-    "static/js/main.863f8e7f.js"
+    "static/css/main.0f651de0.css",
+    "static/js/main.bb5abd00.js"
   ]
 }
