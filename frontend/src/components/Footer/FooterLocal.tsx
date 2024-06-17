@@ -7,6 +7,9 @@ function FooterLocal() {
             <p> andar - Chácara Santo Antônio, </p> 
             <p> São Paulo - SP, 04717-004 </p>
             </div>
+
+           <h4>2024 Compass UOL</h4>
+
         </div>
     )
 }

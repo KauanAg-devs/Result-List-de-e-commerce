@@ -11,7 +11,7 @@
     position: relative;
     align-items: stretch; 
     width: 100%;
-    justify-content: center;
+    justify-content: space-around;
     flex: 1 1 auto;
 }
 
@@ -60,7 +60,13 @@
     line-height: 0.9vmax;
     word-wrap:break-word;
 }
-
+#footer-local h4 {
+    position: relative;
+    top: 20%;
+    padding-bottom: 10%;
+    font-size: 1.1vmax;
+    font-weight: 100;
+}
 #footer-newsletter > #email-input {
     display: flex;
 }
