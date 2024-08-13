@@ -1,7 +1,6 @@
-import '../css/Filter.css'
 import React, { useState } from 'react';
-import OrderFilter from './OrderFilter';
-import { ProductType } from '../Product/Product';
+import OrderFilter from './OrderProducts';
+import { ProductType } from './Product';
 
 type FilterProps = {
   setFilterValue: React.Dispatch<React.SetStateAction<number>>;
@@ -9,7 +8,7 @@ type FilterProps = {
   setProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
 };
 
-function Filter({ setFilterValue, products, setProducts }: FilterProps) {
+function FilterProducts({ setFilterValue, products, setProducts }: FilterProps) {
   const [inputValue, setInputValue] = useState('');
 
   const applyFilter = () => {
@@ -25,21 +24,22 @@ function Filter({ setFilterValue, products, setProducts }: FilterProps) {
   };
 
   return (
-    <div id="filter">
+    <div className="w-full h-[8vmax] bg-[#f9f1e7] flex justify-center items-center box-border">
       <OrderFilter 
-       products={products} 
-       setProducts={setProducts}
+        products={products} 
+        setProducts={setProducts}
       />
-      <div id='filter-search'>
-        <h1>Show</h1>
-         <input
+      <div className="flex items-center justify-end w-[70%] relative right-[5%]">
+        <h1 className="text-[1.2vmax] font-normal mr-[1.5%]">Show</h1>
+        <input
           type="search"
+          className="border-none outline-none w-[2.5vmax] h-[2.5vmax] text-[1.1vmax] text-center bg-white text-[#9f9f9f] placeholder-[#9f9f9f]"
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
-         />
+        />
       </div>
     </div>
   );
-};
+}
 
-export default Filter;
+export default FilterProducts;

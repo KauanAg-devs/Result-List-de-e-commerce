@@ -1,9 +1,9 @@
-import './App.css';
-import Header from './components/Header/Header';
-import Navigation from './components/Navigation/Navigation';
-import Main from './components/Main/Main';
-import QualityBar from './components/QualityBar/QualityBar';
-import Footer from './components/Footer/Footer';
+import './index.css';
+import Header from './components/Header';
+import Navigation from './components/Navigation';
+import Main from './components/Main';
+import QualityBar from './components/QualityBar';
+import Footer from './components/Footer';
 
 function App() {
   return (

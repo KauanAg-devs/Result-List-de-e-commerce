@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import './css/Main.css';
-import Filter from './Filter/Filter';
-import ProductSections from './Product/ProductSections';
-import productTest from './ProductTest';
-import { ProductType } from './Product/Product';
-import ProductsContainer from './Product/ProductsContainer';
+import ProductSections from './Main/ProductSections';
+import productTest from './Main/ProductTest';
+import { ProductType } from './Main/Product';
+import ProductsContainer from './Main/ProductsContainer';
+import FilterProducts from './Main/FilterProducts';
 
 function Main(): JSX.Element {
   const [filterValue, setFilterValue] = useState<number>(10); 
@@ -17,11 +16,11 @@ function Main(): JSX.Element {
     const sections = Math.ceil(totalProducts / filterValue);    
     setTotalSections(sections);
   }, [filterValue, products]);
-
+ 
   return (
-    <main id="main">
+    <main className='relative items-center flex flex-col min-h-[90vh] w-full'>
 
-      <Filter 
+      <FilterProducts 
           setFilterValue={setFilterValue} 
           products={products} 
           setProducts={setProducts} 
