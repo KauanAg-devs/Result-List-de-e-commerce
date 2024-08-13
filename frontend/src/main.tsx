@@ -6,6 +6,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import Auth from './pages/Auth/Auth.tsx';
 
 const router = createBrowserRouter([
   {
@@ -13,8 +14,8 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/home",
-    element: (<h1>Home</h1>)
+    path: "/auth",
+    element: <Auth/>
   }
 ], {basename: "/Result-List-de-e-commerce"});
 createRoot(document.getElementById('root')!).render(
