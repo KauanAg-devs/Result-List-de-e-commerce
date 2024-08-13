@@ -39,7 +39,7 @@ function ProductSections({ setCurrentSection, totalSections }: ProductSectionsPr
       <button
         key={section}
         onClick={() => setCurrentSection(section)}
-        className="bg-[#f9f1e7] h-[5vmax] w-[5vmax] rounded-lg text-[1.1vmax] font-medium mb-[1.5vmax] hover:bg-orange-400"
+        className="bg-[#f9f1e7] h-[5vmax] w-[5vmax] rounded-lg text-[1.1vmax] font-medium mb-[1.5vmax] active:bg-orange-400"
       >
         {section}
       </button>
@@ -51,7 +51,7 @@ function ProductSections({ setCurrentSection, totalSections }: ProductSectionsPr
       {showPreviousButton && (
         <button
           onClick={handlePreviousButtonClick}
-          className="bg-[#f9f1e7] h-[5vmax] w-[5vmax] rounded-lg text-[1.1vmax] font-medium mb-[1.5vmax] hover:bg-orange-400"
+          className="bg-[#f9f1e7] h-[5vmax] w-[5vmax] rounded-lg text-[1.1vmax] font-medium mb-[1.5vmax] active:bg-orange-400"
         >
           Previous
         </button>
@@ -62,7 +62,7 @@ function ProductSections({ setCurrentSection, totalSections }: ProductSectionsPr
       {currentPage < Math.ceil(totalSections / 3) && (
         <button
           onClick={handleNextButtonClick}
-          className="bg-[#f9f1e7] h-[5vmax] w-[5vmax] rounded-lg text-[1.1vmax] font-medium mb-[1.5vmax] hover:bg-orange-400"
+          className="bg-[#f9f1e7] h-[5vmax] w-[5vmax] rounded-lg text-[1.1vmax] font-medium mb-[1.5vmax] active:bg-orange-400"
         >
           Next
         </button>
