@@ -11,16 +11,16 @@ type FilterProps = {
 function FilterProducts({ setFilterValue, products, setProducts }: FilterProps) {
   const [inputValue, setInputValue] = useState('');
 
-  const applyFilter = () => {
-    if (isNaN(parseInt(inputValue))) return;
-    setFilterValue(parseInt(inputValue));
+  const applyFilter = (value: string) => {
+    const parsedValue = parseInt(value);
+    if (isNaN(parsedValue) || parsedValue < 1) return;
+    setFilterValue(parsedValue);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      event.preventDefault(); 
-      applyFilter();
-    }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    applyFilter(newValue);
   };
 
   return (
@@ -32,10 +32,10 @@ function FilterProducts({ setFilterValue, products, setProducts }: FilterProps) 
       <div className="flex items-center justify-end w-[70%] relative right-[5%]">
         <h1 className="text-[1.2vmax] font-normal mr-[1.5%]">Show</h1>
         <input
-          type="search"
+          type="text"
+          value={inputValue} 
           className="border-none outline-none w-[2.5vmax] h-[2.5vmax] text-[1.1vmax] text-center bg-white text-[#9f9f9f] placeholder-[#9f9f9f]"
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleKeyDown}
+          onChange={handleInputChange} 
         />
       </div>
     </div>
