@@ -14,8 +14,12 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/auth",
-    element: <Auth/>
+    path: "/auth/login",
+    element: <Auth />
+  },
+  {
+    path: "/auth/signup",
+    element: <Auth />
   }
 ], {basename: "/Result-List-de-e-commerce"});
 createRoot(document.getElementById('root')!).render(
