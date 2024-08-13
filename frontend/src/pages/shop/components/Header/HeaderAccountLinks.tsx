@@ -1,7 +1,7 @@
-import AccountLogo from "../../images/mdi_account-alert-outline.svg"
-import HeartImage from "../../images/akar-icons_heart.svg"
-import IconSearch from "../../images/akar-icons_search.svg"
-import ShoppingCartImage from "../../images/ant-design_shopping-cart-outlined.svg"
+import AccountLogo from "../../../../images/mdi_account-alert-outline.svg"
+import HeartImage from "../../../../images/akar-icons_heart.svg"
+import IconSearch from "../../../../images/akar-icons_search.svg"
+import ShoppingCartImage from "../../../../images/ant-design_shopping-cart-outlined.svg"
 
 export default function HeaderAccountLinks() {
   return (

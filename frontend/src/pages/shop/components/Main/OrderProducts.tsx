@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ProductType } from './Product';
-import filterImage from '../../images/Group 57.svg';
-import verticalLine from '../../images/Line 5.svg'; 
+import filterImage from '../../../../images/Group 57.svg';
+import verticalLine from '../../../../images/Line 5.svg'; 
 
 type OrderFilterProps = {
   products: ProductType[];

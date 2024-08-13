@@ -1,4 +1,4 @@
-import productImage from '../../images/image 1.svg';
+import productImage from '../../../../images/image 1.svg';
 import { ProductType } from './Product';
 
 const productTest: ProductType[] = [
