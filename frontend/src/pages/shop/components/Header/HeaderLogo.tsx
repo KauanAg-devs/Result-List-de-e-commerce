@@ -1,4 +1,4 @@
-import LogoSvg from '../../images/Frame 168.svg'
+import LogoSvg from '../../../../images/Frame 168.svg'
 
 export default function HeaderLogo() {
     return (

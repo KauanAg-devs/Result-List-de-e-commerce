@@ -1,3 +1,4 @@
+import QualityBarImage from '../../../images/Frame 161.svg'
 import { useState, useEffect } from 'react';
 import ProductSections from './Main/ProductSections';
 import productTest from './Main/ProductTest';
@@ -38,6 +39,9 @@ function Main(): JSX.Element {
         products={products} 
         setCurrentSection={setCurrentSection}
       />
+
+      <img id='quality-bar' className='w-full' src={QualityBarImage} alt="" />
+
     </main>
   );
 }
