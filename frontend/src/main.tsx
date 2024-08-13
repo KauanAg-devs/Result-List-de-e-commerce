@@ -6,16 +6,17 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import Login from './pages/login/Login.tsx';
 
 const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />
+  },
   {
     path: "/shop",
     element: <App />,
   },
-  {
-    path: "/home",
-    element: (<h1>Home</h1>)
-  }
 ], {basename: "/Result-List-de-e-commerce"});
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
