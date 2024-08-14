@@ -1,18 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './pages/shop/Shop.tsx'
-import './index.css'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Auth from './pages/Auth/Auth.tsx';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import  ProtectedRoute from './routes/ProtectedRoutes';
+import App from './pages/shop/Shop';
+import Auth from './pages/Auth/Auth';
+
 
 const router = createBrowserRouter([
-  {
-    path: "/shop",
-    element: <App />,
-  },
   {
     path: "/auth/login",
     element: <Auth />
@@ -20,10 +15,21 @@ const router = createBrowserRouter([
   {
     path: "/auth/signup",
     element: <Auth />
+  },
+  {
+    path: "/shop",
+    element: <ProtectedRoute/>,
+    children: [{
+      path: "/shop",
+      element: <App />
+    }]
   }
-], {basename: "/Result-List-de-e-commerce"});
+], { basename: "/Result-List-de-e-commerce" });
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
-)
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </StrictMode>
+);

@@ -18,7 +18,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
-  @Get('login')
+  @Post('login')
   async login(@Req() req: any, @Res() res: Response) {
     const { accessToken, refreshToken } = await this.authService.login(
       req.user,
@@ -95,5 +95,21 @@ export class AuthController {
     });
 
     return res.json({ newAccessToken });
+  }
+
+  @Get('status')
+  async checkAuthStatus(@Req() req: any, @Res() res: Response) {
+    const token = req.cookies['accessToken'];
+
+    if (!token) {
+      return res.status(401).json({ isAuthenticated: false });
+    }
+
+    try {
+      await this.authService.validateToken(token);
+      return res.json({ isAuthenticated: true });
+    } catch {
+      return res.status(401).json({ isAuthenticated: false });
+    }
   }
 }

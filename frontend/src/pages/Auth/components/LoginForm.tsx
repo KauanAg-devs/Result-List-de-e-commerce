@@ -2,14 +2,31 @@ import OrSeparator from '../../../images/auth-or.svg';
 import signWithGoogle from '../../../images/signin-with-google.svg';
 import signWithApple from '../../../images/signin-with-apple.svg';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
     const { register, handleSubmit, formState: { errors } } = useForm();
-
-    const onSubmit = (data: object) => {
-        console.log(data);
-    };
+    const navigate = useNavigate();
+    
+    const onSubmit = async (data: object) => {
+        try {
+          const response = await fetch('http://localhost:3000/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify(data),
+          });
+      
+          if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Login failed:', errorData);
+          } else navigate("/shop")
+        } catch (error) {
+          console.error('error during login:', error);
+        }
+      };
 
     return (
     <>

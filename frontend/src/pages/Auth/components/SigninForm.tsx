@@ -2,14 +2,32 @@ import OrSeparator from '../../../images/auth-or.svg';
 import signWithGoogle from '../../../images/signin-with-google.svg';
 import signWithApple from '../../../images/signin-with-apple.svg';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function SigninForm() {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
-    const onSubmit = (data: object) => {
-        console.log(data);
-    };
+    const onSubmit = async (data: object) => {
+        try {
+          const response = await fetch('http://localhost:3000/auth/signup', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify(data),
+          });
+      
+          if (!response.ok) {
+            const errorData = await response.json();
+            console.error('sign up failed:', errorData);
+          } else navigate("/shop")
+        } catch (error) {
+          console.error('error during sign up:', error);
+        }
+      };
+
 
     return (
        <>
@@ -25,6 +43,7 @@ export default function SigninForm() {
                 type="text" 
                 placeholder='Enter your name' 
                 className='w-full p-2 border border-gray-300 rounded-lg'
+                {...register('name')}
             />
         </div>
         <div className='flex flex-col'>
