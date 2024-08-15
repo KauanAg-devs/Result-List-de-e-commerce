@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import OrderFilter from './OrderProducts';
+import OrderProducts from './OrderProducts';
 import { ProductType } from './Product';
 
 type FilterProps = {
@@ -25,7 +25,7 @@ function FilterProducts({ setFilterValue, products, setProducts }: FilterProps) 
 
   return (
     <div className="w-full h-[8vmax] bg-[#f9f1e7] flex justify-center items-center box-border">
-      <OrderFilter 
+      <OrderProducts
         products={products} 
         setProducts={setProducts}
       />

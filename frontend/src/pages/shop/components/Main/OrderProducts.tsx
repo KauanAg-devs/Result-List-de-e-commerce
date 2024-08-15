@@ -12,7 +12,9 @@ function OrderFilter({ products, setProducts }: OrderFilterProps) {
   const [showFilterButtons, setShowFilterButtons] = useState<boolean>(false);
 
   function productsByPrices() {
-    const sortedProducts = [...products].sort((a, b) => parseInt(b.price) - parseInt(a.price));
+    const sortedProducts = [...products].sort((a, b) => parseInt(b.price.replace(/\./g, '')) - parseInt(a.price.replace(/\./g, '')));
+    console.log(sortedProducts[2].price + 3);
+        
     setProducts(sortedProducts);
   }
   
@@ -26,7 +28,7 @@ function OrderFilter({ products, setProducts }: OrderFilterProps) {
   }
 
   const OrderFilterButtons = (
-    <div className="flex flex-col justify-around items-center w-[15vmax] h-[6vmax]">
+    <div className="flex flex-col justify-around items-center w-[1/2] h-[6vmax]">
       <button 
         className="w-[7vmax] h-[45%] text-[0.89vmax] font-bold bg-[#f9f1e7] text-[#3A3A3A] rounded-[10px] mx-[30px] mb-2"
         onClick={productsByPrices}
@@ -43,14 +45,16 @@ function OrderFilter({ products, setProducts }: OrderFilterProps) {
   );
 
   return (
-    <div className="relative flex items-center justify-evenly w-[30%] left-[11.5%]">
+    <div className="relative flex items-center justify-end w-[30%] left-[0%]">
+      {showFilterButtons && OrderFilterButtons}
+      <div className='w-1/2 flex items-center justify-evenly '>
       <img 
         src={filterImage} 
         alt="Filter" 
         className="w-[5vmax] cursor-pointer" 
         onClick={shouldShowFilterButtons} 
       />
-      {showFilterButtons && OrderFilterButtons}
+
       <img 
         src={verticalLine} 
         alt="Vertical Line" 
@@ -59,6 +63,7 @@ function OrderFilter({ products, setProducts }: OrderFilterProps) {
       <h1 className="text-[1.1vmax] font-normal text-black whitespace-nowrap">
         Showing 1-{products.length} files
       </h1>
+      </div>
     </div>
   );
 }
