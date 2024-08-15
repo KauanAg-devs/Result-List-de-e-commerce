@@ -1,7 +1,7 @@
 import QualityBarImage from '../../../images/Frame 161.svg'
 import { useState, useEffect } from 'react';
 import ProductSections from './Main/ProductSections';
-import productTest from './Main/ProductTest';
+import getProducts from './Main/ProductTest'; 
 import { ProductType } from './Main/Product';
 import ProductsContainer from './Main/ProductsContainer';
 import FilterProducts from './Main/FilterProducts';
@@ -10,12 +10,16 @@ function Main(): JSX.Element {
   const [filterValue, setFilterValue] = useState<number>(10); 
   const [currentSection, setCurrentSection] = useState(1); 
   const [totalSections, setTotalSections] = useState<number>(1); 
-  const [products, setProducts] = useState<ProductType[]>(productTest);
-
+  const [products, setProducts] = useState<ProductType[]>([]);
+  
+  getProducts().then(products => setProducts(products));
+  
   useEffect(() => {
-    const totalProducts = products.length;
-    const sections = Math.ceil(totalProducts / filterValue);    
-    setTotalSections(sections);
+    if (products) {
+      const totalProducts = products.length;
+      const sections = Math.ceil(totalProducts / filterValue);    
+      setTotalSections(sections);
+    }
   }, [filterValue, products]);
  
   return (

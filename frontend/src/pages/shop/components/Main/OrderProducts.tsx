@@ -12,9 +12,7 @@ function OrderFilter({ products, setProducts }: OrderFilterProps) {
   const [showFilterButtons, setShowFilterButtons] = useState<boolean>(false);
 
   function productsByPrices() {
-    const sortedProducts = [...products].sort((a, b) => parseInt(b.price.replace(/\./g, '')) - parseInt(a.price.replace(/\./g, '')));
-    console.log(sortedProducts[2].price + 3);
-        
+    const sortedProducts = [...products].sort((a, b) => parseInt(b.price.replace(/\./g, '')) - parseInt(a.price.replace(/\./g, '')));        
     setProducts(sortedProducts);
   }
   
