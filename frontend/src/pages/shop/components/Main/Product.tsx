@@ -38,7 +38,7 @@ const Product: React.FC<ProductType> = ({ image, name, title, price, discount })
           </div>
         </div>
       )}
-      <img className="w-full h-[70%] object-cover" src={image} alt={name} />
+      <img className="w-full h-[70%] object-cover" src={`http://localhost:3000${image}`} alt={name} />
       <div className="flex-col items-center mt-2 h-[15%] w-full px-2">
         <div className="text-[0.5rem] sm:text-sm md:text-base font-bold text-[#3A3A3A] truncate">{name}</div>
         <div className="text-[0.5rem] sm:text-xs md:text-sm text-[#898989] font-[550] mt-1 truncate">{title}</div>

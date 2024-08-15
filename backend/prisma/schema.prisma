@@ -22,7 +22,7 @@ model Product {
   id          String   @id @default(cuid())
   image       String
   name        String
-  description String
+  title       String
   price       String
   discount    String?
   createdAt   DateTime @default(now())

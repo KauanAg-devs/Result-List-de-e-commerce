@@ -3,9 +3,15 @@ import signWithGoogle from '../../../images/signin-with-google.svg';
 import signWithApple from '../../../images/signin-with-apple.svg';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function LoginForm() {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [errorData, setErrorData] = useState<{
+      message: string, 
+      error: string, 
+      statusCode: number
+    }>()
     const navigate = useNavigate();
     
     const onSubmit = async (data: object) => {
@@ -21,7 +27,9 @@ export default function LoginForm() {
       
           if (!response.ok) {
             const errorData = await response.json();
-            console.error('Login failed:', errorData);
+            setErrorData(errorData);
+            console.log(errorData);
+            
           } else navigate("/shop")
         } catch (error) {
           console.error('error during login:', error);
@@ -34,6 +42,7 @@ export default function LoginForm() {
           <h1 className='text-black text-xl md:text-2xl font-bold'>Welcome Back!</h1>
           <h2 className='text-black text-sm md:text-lg'>Enter your Credentials to access your account</h2>
        </div>
+
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-full space-y-4'>
 
         <div className='flex flex-col'>
@@ -66,7 +75,7 @@ export default function LoginForm() {
             value="Login" 
             className='w-full p-2 bg-[#3A5B22] text-white font-semibold rounded-lg cursor-pointer hover:bg-[#33511e]'
         />
-        
+        <span className='text-red-500 text-xs'>{errorData ? errorData.message : ''}</span>
         <img src={OrSeparator} alt="" className='w-full' />
         
         <div className='flex justify-between'>
