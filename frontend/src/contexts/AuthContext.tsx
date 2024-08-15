@@ -1,74 +1,58 @@
-  import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
+import { JwtService } from '../api/JwtService';
 
-  const AuthContext = createContext<{ 
-      isAuthenticated: boolean; 
-      isLoading: boolean;
-      setIsAuthenticated: Dispatch<SetStateAction<boolean>> 
-  }>({ 
-      isAuthenticated: false, 
-      isLoading: true, 
-      setIsAuthenticated: () => {} 
-  });
+const AuthContext = createContext<{ 
+    isAuthenticated: boolean; 
+    isLoading: boolean;
+    setIsAuthenticated: Dispatch<SetStateAction<boolean>> 
+}>({ 
+    isAuthenticated: false, 
+    isLoading: true, 
+    setIsAuthenticated: () => {} 
+});
 
-  export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
-    const refreshToken = async (): Promise<boolean> => {
-      try {
-        const response = await fetch('http://localhost:3000/auth/refresh', {
-          method: 'POST',
-          credentials: 'include',
-        });
+    const checkJwtAuthentication = async () => {
+        try {
+            let response = await JwtService.fetchStatus();
 
-        if (response.ok) return true;
-        return false; 
-      } catch (error) {
-        console.error('Failed to refresh token:', error);
-        return false;
-      }
-    };
+            if (response.ok) {
+                const data = await response.json();
+                setIsAuthenticated(data.isAuthenticated);
+                return;
+            }
 
-    const checkAuthentication = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/auth/status', { credentials: 'include' });
-        console.log(response.status);
-        
-        if (response.status === 401) {
-          const refreshed = await refreshToken();
-          console.log(response.status);
-          
-          if (refreshed) {
-            const retryResponse = await fetch('http://localhost:3000/auth/status', { credentials: 'include' });
-            const data = await retryResponse.json();            
-            return setIsAuthenticated(data.isAuthenticated);
-          } 
+            const refreshed = await JwtService.refreshToken();
+            if (!refreshed) {
+                setIsAuthenticated(false);
+                return;
+            }
+
+            response = await JwtService.fetchStatus();
+            const data = await response.json();
+            setIsAuthenticated(data.isAuthenticated);
+        } catch (error) {
+            console.error('Error checking authentication:', error);
             setIsAuthenticated(false);
-          
-        } else {
-          const data = await response.json();
-          setIsAuthenticated(data.isAuthenticated);
+        } finally {
+            setIsLoading(false);
         }
-      } catch (error) {
-        console.error('Error checking authentication:', error);
-        setIsAuthenticated(false);
-      } finally {
-        setIsLoading(false);
-      }
     };
 
     useEffect(() => {
-      checkAuthentication();
+        checkJwtAuthentication();
     }, []);
 
     return (
-      <AuthContext.Provider value={{ isAuthenticated, isLoading, setIsAuthenticated }}>
-        {children}
-      </AuthContext.Provider>
+        <AuthContext.Provider value={{ isAuthenticated, isLoading, setIsAuthenticated }}>
+            {children}
+        </AuthContext.Provider>
     );
-  }
+}
 
-  // eslint-disable-next-line react-refresh/only-export-components
-  export function useAuth() {
+export function useAuth() {
     return useContext(AuthContext);
-  }
+}
