@@ -94,7 +94,7 @@ export class AuthController {
       sameSite: 'strict',
     });
 
-    return res.json({ newAccessToken });
+    return res.json({ message: 'token refreshed' });
   }
 
   @Get('status')

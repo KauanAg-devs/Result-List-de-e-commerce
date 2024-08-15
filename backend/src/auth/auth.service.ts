@@ -42,7 +42,7 @@ export class AuthService {
     const { name, email, password } = user;
 
     if (await this.userService.getUser({ email })) {
-      throw new UnauthorizedException('User already exists.');
+      throw new UnauthorizedException('some account is using this email.');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);

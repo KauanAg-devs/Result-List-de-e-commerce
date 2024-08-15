@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import authImg from '../../images/auth-img.svg';
 import LoginForm from './components/LoginForm';
-import SigninForm from './components/SigninForm';
+import SigninForm from './components/SignUpForm';
 
 export default function Auth() {
 
