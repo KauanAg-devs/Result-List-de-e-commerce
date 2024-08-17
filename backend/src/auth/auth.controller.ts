@@ -11,7 +11,7 @@ import {
 import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
-import { CreateUserDto } from 'src/user/user.dto';
+import { UserDto } from 'src/user/user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -40,7 +40,7 @@ export class AuthController {
   }
 
   @Post('signup')
-  async signup(@Body() user: CreateUserDto, @Res() res: Response) {
+  async signup(@Body() user: UserDto, @Res() res: Response) {
     const { accessToken, refreshToken } = await this.authService.signup(user);
 
     res.cookie('refreshToken', refreshToken, {

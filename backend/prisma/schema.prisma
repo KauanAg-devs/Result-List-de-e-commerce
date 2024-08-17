@@ -16,15 +16,49 @@ model User {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
-
-
 model Product {
-  id          String   @id @default(cuid())
-  image       String
+  id          String          @id @default(cuid())
   name        String
+  image       String
   title       String
-  price       String
-  discount    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  price       Int
+  discount    Int?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  details     ProductDetails? @relation("ProductToDetails")
+}
+
+model ProductDetails {
+  id            String   @id @default(cuid())
+  sku           String   @unique
+  productId     String   @unique
+  description   String
+  fiveStarCount Int      @default(0)
+  customerCount Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  categoryId    String?
+  category      Category? @relation(fields: [categoryId], references: [id])
+  tags          Tag[]     @relation("ProductDetailsTags")
+  product       Product   @relation("ProductToDetails", fields: [productId], references: [id])
+}
+
+model Tag {
+  id              String   @id @default(cuid())
+  name            String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  productDetails  ProductDetails[] @relation("ProductDetailsTags")
+}
+
+model Category {
+  id              String   @id @default(cuid())
+  name            String   @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  productDetails  ProductDetails[]
 }

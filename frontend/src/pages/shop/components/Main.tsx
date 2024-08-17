@@ -1,18 +1,20 @@
 import QualityBarImage from '../../../images/Frame 161.svg'
 import { useState, useEffect } from 'react';
 import ProductSections from './Main/ProductSections';
-import getProducts from './Main/ProductTest'; 
 import { ProductType } from './Main/Product';
 import ProductsContainer from './Main/ProductsContainer';
 import FilterProducts from './Main/FilterProducts';
+import { fetchFilteredProducts } from '../../../api/FetchFilteredProducts';
 
 function Main(): JSX.Element {
-  const [filterValue, setFilterValue] = useState<number>(10); 
+  const [filterValue, setFilterValue] = useState<number>(16); 
   const [currentSection, setCurrentSection] = useState(1); 
   const [totalSections, setTotalSections] = useState<number>(1); 
   const [products, setProducts] = useState<ProductType[]>([]);
-  
-  getProducts().then(products => setProducts(products));
+
+  useEffect(() => {
+    fetchFilteredProducts(filterValue).then(data => setProducts(data));
+  }, [filterValue]);
   
   useEffect(() => {
     if (products) {

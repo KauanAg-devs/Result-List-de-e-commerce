@@ -3,56 +3,35 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Post,
-  UploadedFile,
-  UseInterceptors,
+  Query,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductService } from './product.service';
-import multerConfig from 'src/multer.config';
+import { ProductDto } from './product.dto';
 
-@Controller('products')
+@Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private productService: ProductService) {}
+
+  @Get(':id/related')
+  async getRelatedProducts(
+    @Param('id') id: string,
+    @Query('quantity') quantity: number = 4,
+  ) {
+    return this.productService.getRelatedProducts(id, quantity);
+  }
 
   @Post()
-  @UseInterceptors(FileInterceptor('image', multerConfig))
-  async createProduct(
-    @Body()
-    productData: {
-      name: string;
-      title: string;
-      price: string;
-      discount?: string;
-    },
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    const { name, title, discount, price } = productData;
-    console.log('Uploaded File:', file);
-
-    const imagePath = file ? `/uploads/${file.filename}` : null;
-
-    if (!name || !title || !price) {
-      throw new Error('Required fields are missing');
-    }
-
-    return this.productService.createProduct({
-      name,
-      title,
-      price,
-      image: imagePath,
-      discount,
-    });
+  async createProduct(@Body() productDto: ProductDto) {
+    return await this.productService.createProduct(productDto);
   }
-
-  @Delete()
-  async deleteProduct(@Body() product: { id: string }) {
-    const { id } = product;
-    return this.productService.deleteProduct({ id });
-  }
-
   @Get()
-  async getAllProducts() {
-    return this.productService.getAllProducts();
+  getProducts() {
+    return this.productService.getProducts();
+  }
+  @Delete('deleteAll')
+  async deleteAllProducts() {
+    await this.productService.deleteAllProducts();
   }
 }

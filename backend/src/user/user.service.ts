@@ -1,25 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
-import { User, Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma.service';
+import { UserDto } from './user.dto';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async getUser(
-    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
-  ): Promise<User | null> {
-    if (!userWhereUniqueInput.id && !userWhereUniqueInput.email) {
-      throw new Error('Either id or email must be provided');
-    }
-
-    return this.prisma.user.findUnique({
-      where: userWhereUniqueInput,
+  async getUser(email: string) {
+    return this.prismaService.user.findUnique({
+      where: { email },
     });
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({
+  async createUser(data: UserDto) {
+    return this.prismaService.user.create({
       data,
     });
   }
