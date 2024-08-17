@@ -1,39 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { SkuService } from 'src/sku/sku.service';
 import { ProductDto } from './product.dto';
-import { CategoryService } from 'src/category/category.service';
 
 @Injectable()
 export class ProductService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly skuService: SkuService,
-    private readonly categoryService: CategoryService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  async createProduct(productDto: ProductDto) {
+  async createProduct(
+    productDto: ProductDto,
+    category: { id: string },
+    sku: string,
+    tags?: { id: string }[],
+  ) {
+    const { name, image, title, price, discount, description } = productDto;
+
     try {
-      const {
-        name,
-        image,
-        title,
-        price,
-        discount,
-        color,
-        size,
-        categoryName,
-        tagIds,
-        description,
-      } = productDto;
-
-      let category = await this.categoryService.findOne(categoryName);
-      if (!category) {
-        category = await this.categoryService.create({ name: categoryName });
-      }
-
-      const sku = this.skuService.generateSku(name, color, size);
-
       const product = await this.prisma.product.create({
         data: {
           image,
@@ -45,11 +26,9 @@ export class ProductService {
             create: {
               sku,
               description: description || '',
-              category: category.id
-                ? { connect: { id: category.id } }
-                : undefined,
-              tags: tagIds
-                ? { connect: tagIds.map((id) => ({ id })) }
+              category: { connect: { id: category.id } },
+              tags: tags
+                ? { connect: tags.map((tag) => ({ id: tag.id })) }
                 : undefined,
               customerCount: 0,
               fiveStarCount: 0,
@@ -57,7 +36,11 @@ export class ProductService {
           },
         },
         include: {
-          details: true,
+          details: {
+            include: {
+              tags: true,
+            },
+          },
         },
       });
 
@@ -66,17 +49,22 @@ export class ProductService {
         data: { productId: product.id },
       });
 
-      const updatedProduct = await this.prisma.product.findUnique({
+      return this.prisma.product.findUnique({
         where: { id: product.id },
         include: {
-          details: true,
+          details: {
+            include: {
+              tags: true,
+            },
+          },
         },
       });
-
-      return updatedProduct;
     } catch (error) {
       console.error(error);
-      throw new Error(`Error creating product: ${error.message}`);
+      throw new HttpException(
+        `Error creating product: ${error.message}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
   async getProducts(page: number = 1, limit: number = 16, filters?: any) {

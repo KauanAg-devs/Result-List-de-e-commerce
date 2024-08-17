@@ -12,13 +12,23 @@ export class CategoryService {
     });
   }
 
+  async findOrCreateCategory(categoryName: string) {
+    let category = await this.findOne(categoryName);
+
+    if (!category) {
+      category = await this.create({ name: categoryName });
+    }
+
+    return category;
+  }
+
   findAll() {
     return this.prisma.category.findMany();
   }
 
-  findOne(id: string) {
+  findOne(name: string) {
     return this.prisma.category.findUnique({
-      where: { id },
+      where: { name },
     });
   }
 }

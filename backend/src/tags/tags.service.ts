@@ -11,7 +11,21 @@ export class TagsService {
       data: TagDto,
     });
   }
+  async findOrCreateTags(tags: string[]) {
+    return Promise.all(
+      tags.map(async (tag) => {
+        const existingTag = await this.prisma.tag.findUnique({
+          where: { name: tag },
+        });
 
+        return existingTag ?? this.create({ name: tag });
+      }),
+    );
+  }
+
+  async findAllTags() {
+    return this.prisma.tag.findMany();
+  }
   findAll() {
     return this.prisma.tag.findMany();
   }

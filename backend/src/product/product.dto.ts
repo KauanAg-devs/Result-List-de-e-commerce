@@ -2,7 +2,6 @@ import {
   IsString,
   IsOptional,
   IsArray,
-  IsUUID,
   IsNotEmpty,
   IsPositive,
   IsNumber,
@@ -42,8 +41,7 @@ export class ProductDto {
 
   @IsOptional()
   @IsArray()
-  @IsUUID('all', { each: true })
-  tagIds?: string[];
+  tags?: string[];
 
   @IsOptional()
   @IsString()

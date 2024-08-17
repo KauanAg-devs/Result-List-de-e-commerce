@@ -3,11 +3,12 @@ Host: localhost:3000
 Content-Type: application/json
 
 {
-    "categoryName": "Category Name",
-    "name": "Product Name",
-    "title": "Product Title",
-    "price": 9.99,
-    "description": "Product Description",
-    "discount": 0.1,
-    "image": "https://example.com/image.jpg"
+    "categoryName": "Carros",
+    "name": "Ford",
+    "title": "carro ford 2019",
+    "price": 100000,
+    "description": "carro ford 2019",
+    "discount": 500000,
+    "image": "https://example.com/image.jpg",
+    "tags": ["ford", "carro"]
 }
