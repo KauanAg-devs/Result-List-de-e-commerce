@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Query,
 } from '@nestjs/common';
@@ -50,12 +51,12 @@ export class ProductController {
   }
 
   @Get()
-  getProducts(
-    @Query() pages: number,
-    @Query() limit: number,
-    @Query() filter: any,
+  async getProducts(
+    @Query('pages', ParseIntPipe) pages?: number,
+    @Query('limit', ParseIntPipe) limit?: number,
   ) {
-    return this.productService.getProducts(pages, limit, filter);
+    const product = await this.productService.getProducts(pages, limit);
+    return { products: product[0], count: product[1] };
   }
 
   @Delete('deleteAll')

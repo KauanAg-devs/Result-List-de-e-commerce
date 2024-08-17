@@ -67,11 +67,10 @@ export class ProductService {
       );
     }
   }
-  async getProducts(page: number = 1, limit: number = 16, filters?: any) {
+  async getProducts(page: number = 1, limit: number = 16) {
     const products = this.prisma.product.findMany({
-      skip: (page - 1) * limit,
       take: limit,
-      where: filters,
+      skip: (page - 1) * limit,
       include: {
         details: {
           include: {
@@ -81,8 +80,10 @@ export class ProductService {
         },
       },
     });
-    const totalProducts = await this.prisma.product.count({ where: filters });
-    return { products, totalProducts };
+
+    const totalProducts = this.prisma.product.count({});
+
+    return Promise.all([products, totalProducts]);
   }
 
   async orderProducts(
@@ -144,8 +145,8 @@ export class ProductService {
 
   async deleteAllProducts() {
     return Promise.all([
-      this.prisma.productDetails.deleteMany(),
       this.prisma.product.deleteMany(),
+      this.prisma.productDetails.deleteMany(),
     ]);
   }
 }

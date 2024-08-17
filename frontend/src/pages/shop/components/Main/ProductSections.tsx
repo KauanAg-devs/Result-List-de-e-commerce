@@ -1,50 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProductType } from './Product';
 
 type ProductSectionsProps = {
   filterValue: number;
-  setCurrentSection: React.Dispatch<React.SetStateAction<number>>;
-  totalSections: number;
   products: ProductType[];
+  productCount: number
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function ProductSections({ setCurrentSection, totalSections }: ProductSectionsProps) {
+function ProductSections({ filterValue, productCount, page, setPage }: ProductSectionsProps) {
   const [showPreviousButton, setShowPreviousButton] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
+  
   const handlePreviousButtonClick = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-      setCurrentSection((currentPage - 2) * 3 + 1);
+    if (page > 1) {
+      setPage(page - 1);
     }
   };
 
   const handleNextButtonClick = () => {
-    if (currentPage < Math.ceil(totalSections / 3)) {
-      setCurrentPage(currentPage + 1);
-      setCurrentSection(currentPage * 3 + 1);
-    }
+      setPage(page + 1);
   };
 
-  const startSection = (currentPage - 1) * 3 + 1;
-  const endSection = Math.min(startSection + 2, totalSections);
 
   useEffect(() => {
-    setShowPreviousButton(currentPage > 1);
-  }, [currentPage]);
-
-  const sectionButtons = [];
-  for (let section = startSection; section <= endSection; section++) {
-    sectionButtons.push(
-      <button
-        key={section}
-        onClick={() => setCurrentSection(section)}
-        className="bg-[#f9f1e7] h-[5vmax] w-[5vmax] rounded-lg text-[1.1vmax] font-medium mb-[1.5vmax] active:bg-orange-400"
-      >
-        {section}
-      </button>
-    );
-  }
+    setShowPreviousButton(page > 1);
+  }, [page]);
 
   return (
     <div className="w-[30vmax] h-[10vmax] flex items-center justify-around">
@@ -57,16 +38,21 @@ function ProductSections({ setCurrentSection, totalSections }: ProductSectionsPr
         </button>
       )}
 
-      {sectionButtons}
-
-      {currentPage < Math.ceil(totalSections / 3) && (
+      <button
+        key={page}
+        onClick={() => setPage(page)}
+        className="bg-[#f9f1e7] h-[5vmax] w-[5vmax] rounded-lg text-[1.1vmax] font-medium mb-[1.5vmax] active:bg-orange-400"
+      >
+        {page}
+      </button>
+       {(filterValue * page) < productCount  && 
         <button
           onClick={handleNextButtonClick}
           className="bg-[#f9f1e7] h-[5vmax] w-[5vmax] rounded-lg text-[1.1vmax] font-medium mb-[1.5vmax] active:bg-orange-400"
         >
           Next
         </button>
-      )}
+      }
     </div>
   );
 }

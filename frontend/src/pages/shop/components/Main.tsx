@@ -8,22 +8,16 @@ import { fetchFilteredProducts } from '../../../api/FetchFilteredProducts';
 
 function Main(): JSX.Element {
   const [filterValue, setFilterValue] = useState<number>(16); 
-  const [currentSection, setCurrentSection] = useState(1); 
-  const [totalSections, setTotalSections] = useState<number>(1); 
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [productCount, setProductCount] = useState<number>(0);
+  useEffect(() => {
+    fetchFilteredProducts(page,filterValue).then(data => {
+      setProducts(data.products)
+      setProductCount(data.count)
+    });
+  }, [filterValue, page]);
 
-  useEffect(() => {
-    fetchFilteredProducts(filterValue).then(data => setProducts(data));
-  }, [filterValue]);
-  
-  useEffect(() => {
-    if (products) {
-      const totalProducts = products.length;
-      const sections = Math.ceil(totalProducts / filterValue);    
-      setTotalSections(sections);
-    }
-  }, [filterValue, products]);
- 
   return (
     <main className='relative items-center flex flex-col min-h-[90vh] w-full'>
 
@@ -34,16 +28,15 @@ function Main(): JSX.Element {
       />
       
       <ProductsContainer
-        filterValue={filterValue}
-        currentSection={currentSection}
         products={products}
       />
       
       <ProductSections
-        totalSections={totalSections}
-        filterValue={filterValue} 
+        filterValue={filterValue}
+        page={page}
+        setPage={setPage}
+        productCount={productCount} 
         products={products} 
-        setCurrentSection={setCurrentSection}
       />
 
       <img id='quality-bar' className='w-full' src={QualityBarImage} alt="" />
