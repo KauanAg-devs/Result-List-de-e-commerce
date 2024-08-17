@@ -3,56 +3,64 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
+  ParseIntPipe,
   Post,
-  UploadedFile,
-  UseInterceptors,
+  Query,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductService } from './product.service';
-import multerConfig from 'src/multer.config';
+import { ProductDto } from './product.dto';
+import { CategoryService } from 'src/category/category.service';
+import { SkuService } from 'src/sku/sku.service';
+import { TagsService } from 'src/tags/tags.service';
 
-@Controller('products')
+@Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private skuService: SkuService,
+    private tagsService: TagsService,
+  ) {}
 
-  @Post()
-  @UseInterceptors(FileInterceptor('image', multerConfig))
-  async createProduct(
-    @Body()
-    productData: {
-      name: string;
-      title: string;
-      price: string;
-      discount?: string;
-    },
-    @UploadedFile() file: Express.Multer.File,
+  @Get(':id/related')
+  async getRelatedProducts(
+    @Param('id') id: string,
+    @Query('quantity') quantity: number = 4,
   ) {
-    const { name, title, discount, price } = productData;
-    console.log('Uploaded File:', file);
-
-    const imagePath = file ? `/uploads/${file.filename}` : null;
-
-    if (!name || !title || !price) {
-      throw new Error('Required fields are missing');
-    }
-
-    return this.productService.createProduct({
-      name,
-      title,
-      price,
-      image: imagePath,
-      discount,
-    });
+    return this.productService.getRelatedProducts(id, quantity);
   }
 
-  @Delete()
-  async deleteProduct(@Body() product: { id: string }) {
-    const { id } = product;
-    return this.productService.deleteProduct({ id });
+  @Post()
+  async createProduct(@Body() productDto: ProductDto) {
+    const { name, color, size, categoryName, tags } = productDto;
+
+    const category =
+      await this.categoryService.findOrCreateCategory(categoryName);
+    const resolvedTags = tags
+      ? await this.tagsService.findOrCreateTags(tags)
+      : [];
+    const sku = this.skuService.generateSku(name, color, size);
+
+    return this.productService.createProduct(
+      productDto,
+      category,
+      sku,
+      resolvedTags,
+    );
   }
 
   @Get()
-  async getAllProducts() {
-    return this.productService.getAllProducts();
+  async getProducts(
+    @Query('pages', ParseIntPipe) pages?: number,
+    @Query('limit', ParseIntPipe) limit?: number,
+  ) {
+    const product = await this.productService.getProducts(pages, limit);
+    return { products: product[0], count: product[1] };
+  }
+
+  @Delete('deleteAll')
+  async deleteAllProducts() {
+    await this.productService.deleteAllProducts();
   }
 }

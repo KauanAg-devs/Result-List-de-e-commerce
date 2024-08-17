@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
-import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { ProductModule } from './product/product.module';
+import { SkuModule } from './sku/sku.module';
+import { CategoryModule } from './category/category.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
-    ProductModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '/src/uploads'),
-      serveRoot: '/uploads',
-    }),
     UserModule,
     AuthModule,
+    ProductModule,
+    SkuModule,
+    CategoryModule,
+    TagsModule,
   ],
   controllers: [],
   providers: [],

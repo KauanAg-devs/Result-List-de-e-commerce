@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from 'src/user/user.dto';
+import { UserDto } from 'src/user/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +17,7 @@ export class AuthService {
   }
 
   async validateUser(email: string, password: string): Promise<User | null> {
-    const user = await this.userService.getUser({ email });
+    const user = await this.userService.getUser(email);
     if (!user) {
       throw new UnauthorizedException('User does not exist.');
     }
@@ -38,10 +38,10 @@ export class AuthService {
     };
   }
 
-  async signup(user: CreateUserDto) {
+  async signup(user: UserDto) {
     const { name, email, password } = user;
 
-    if (await this.userService.getUser({ email })) {
+    if (await this.userService.getUser(email)) {
       throw new UnauthorizedException('some account is using this email.');
     }
 
