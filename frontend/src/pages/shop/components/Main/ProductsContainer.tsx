@@ -5,7 +5,8 @@ type ProductsContainerProps = {
 };
 
 function ProductsContainer({ products }: ProductsContainerProps) {
-
+  console.log(products);
+  
   const showProducts = products.map((product, index) => (
     <Product
       key={index}

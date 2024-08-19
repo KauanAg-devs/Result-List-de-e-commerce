@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   ParseIntPipe,
   Post,
   Query,
@@ -22,14 +21,6 @@ export class ProductController {
     private skuService: SkuService,
     private tagsService: TagsService,
   ) {}
-
-  @Get(':id/related')
-  async getRelatedProducts(
-    @Param('id') id: string,
-    @Query('quantity') quantity: number = 4,
-  ) {
-    return this.productService.getRelatedProducts(id, quantity);
-  }
 
   @Post()
   async createProduct(@Body() productDto: ProductDto) {
@@ -54,9 +45,18 @@ export class ProductController {
   async getProducts(
     @Query('pages', ParseIntPipe) pages?: number,
     @Query('limit', ParseIntPipe) limit?: number,
+    @Query('orderBy') orderBy?: 'price' | 'discount' | 'name',
+    @Query('order') order?: 'asc' | 'desc',
   ) {
-    const product = await this.productService.getProducts(pages, limit);
-    return { products: product[0], count: product[1] };
+    const { products, totalProducts } = await this.productService.getProducts(
+      pages,
+      limit,
+      orderBy,
+      order,
+    );
+    console.log(products.details);
+
+    return { products, totalProducts };
   }
 
   @Delete('deleteAll')

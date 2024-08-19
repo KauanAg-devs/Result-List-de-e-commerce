@@ -67,32 +67,19 @@ export class ProductService {
       );
     }
   }
-  async getProducts(page: number = 1, limit: number = 16) {
-    const products = this.prisma.product.findMany({
+  async getProducts(
+    page: number = 1,
+    limit: number = 16,
+    sortBy: 'name' | 'discount' | 'price' = 'price',
+    order: 'asc' | 'desc' = 'asc',
+  ) {
+    const totalProducts = await this.prisma.product.count();
+
+    const products = await this.prisma.product.findMany({
       take: limit,
       skip: (page - 1) * limit,
-      include: {
-        details: {
-          include: {
-            category: true,
-            tags: true,
-          },
-        },
-      },
-    });
-
-    const totalProducts = this.prisma.product.count({});
-
-    return Promise.all([products, totalProducts]);
-  }
-
-  async orderProducts(
-    parameter: 'name' | 'discount' | 'price',
-    order: 'asc' | 'desc',
-  ) {
-    return this.prisma.product.findMany({
       orderBy: {
-        [parameter]: order,
+        [sortBy]: order,
       },
       include: {
         details: {
@@ -103,6 +90,14 @@ export class ProductService {
         },
       },
     });
+
+    if (products.length === 0 && page > 1) {
+      return this.getProducts(1, limit, sortBy, order);
+    }
+    return {
+      products,
+      totalProducts,
+    };
   }
 
   async getRelatedProducts(productId: string, quantity: number = 4) {

@@ -1,4 +1,3 @@
-import QualityBarImage from '../../../images/Frame 161.svg'
 import { useState, useEffect } from 'react';
 import ProductSections from './Main/ProductSections';
 import { ProductType } from './Main/Product';
@@ -7,40 +6,46 @@ import FilterProducts from './Main/FilterProducts';
 import { fetchFilteredProducts } from '../../../api/FetchFilteredProducts';
 
 function Main(): JSX.Element {
-  const [filterValue, setFilterValue] = useState<number>(16); 
+  const [filterValue, setFilterValue] = useState<number>(16);
   const [products, setProducts] = useState<ProductType[]>([]);
   const [page, setPage] = useState<number>(1);
-  const [productCount, setProductCount] = useState<number>(0);
+  const [totalProducts, setTotalProducts] = useState<number>(0);
+  const [orderBy, setOrderBy] = useState<'price' | 'discount' | 'name'>('price');
+  const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+
   useEffect(() => {
-    fetchFilteredProducts(page,filterValue).then(data => {
-      setProducts(data.products)
-      setProductCount(data.count)
-    });
-  }, [filterValue, page]);
+    const loadProducts = async () => {
+      try {
+        const data = await fetchFilteredProducts(page, filterValue, orderBy, order);
+        setProducts(data.products);
+        setTotalProducts(data.totalProducts);
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      }
+    };
+
+    loadProducts();
+  }, [filterValue, page, orderBy, order]);
 
   return (
-    <main className='relative items-center flex flex-col min-h-[90vh] w-full'>
-
-      <FilterProducts 
-          setFilterValue={setFilterValue} 
-          products={products} 
-          setProducts={setProducts} 
+    <main className="container relative items-center flex flex-col min-h-[90vh] w-full">
+      <FilterProducts
+        setFilterValue={setFilterValue}
+        products={products}
+        setProducts={setProducts}
+        setOrderBy={setOrderBy}
+        setOrder={setOrder}
       />
       
-      <ProductsContainer
-        products={products}
-      />
+      <ProductsContainer products={products} />
       
       <ProductSections
         filterValue={filterValue}
         page={page}
         setPage={setPage}
-        productCount={productCount} 
-        products={products} 
+        totalProducts={totalProducts}
+        products={products}
       />
-
-      <img id='quality-bar' className='w-full' src={QualityBarImage} alt="" />
-
     </main>
   );
 }

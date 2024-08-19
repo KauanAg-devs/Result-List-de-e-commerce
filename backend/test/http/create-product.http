@@ -1,14 +1,81 @@
+
+
 POST /product HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 
 {
-    "categoryName": "moto",
-    "name": "moto",
-    "title": "carro ford 2019",
+    "name": "brinquedo",
+    "title": "brinquedo vermelho",
     "price": 100000,
-    "description": "carro ford 2019",
-    "discount": 500000,
-    "image": "https://example.com/image.jpg",
-    "tags": ["moto"]
+    "description": "um brinquedo vermelho",
+    "discount": 50000,
+    "image": "https://imgs.search.brave.com/vgb050i6W3yteZaDJWiPNHYLwuuYKvkYivCHq1ziDGc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNzkx/MjA1ODAvcHQvZm90/by9icmlucXVlZG9z/LWVtLWMlQzMlQjRt/b2RhLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1xVWVlQkdn/SjNGb3JIUEthcGJQ/Z2JVNk5qOVhncnlt/aW01TThRR2w5ejI4/PQ",
+    "categoryName": "brinquedos",
+    "tags": ["brinquedo", "vermelho"]
+}
+###
+POST /product HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+    "name": "Carro Desportivo",
+    "title": "carro desportivo vermelho",
+    "price": 100000,
+    "description": "um carro desportivo 0 que faz 0-100 em 3 segundos",
+    "discount": 50000,
+    "image": "https://kauan-result-list-de-e-commerce.s3.amazonaws.com/quente-carro-desportivo.webp",
+    "categoryName": "Carros",
+    "tags": ["carro", "vermelho"]
+}
+
+
+###
+POST /product HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+    "name": "Camisa Azul",
+    "title": "camisa azul",
+    "price": 50,
+    "description": "uma camisa azul",
+    "discount": 10,
+    "image": "https://kauan-result-list-de-e-commerce.s3.us-east-1.amazonaws.com/D40-7954-008_zoom1.webp",
+    "categoryName": "Roupas",
+    "tags": ["camisa", "azul"]
+}
+
+###
+POST /product HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+    "name": "Camisa Amarela",
+    "title": "camisa amarela",
+    "price": 80,
+    "description": "uma camisa amarela",
+    "discount": 10,
+    "image": "https://kauan-result-list-de-e-commerce.s3.us-east-1.amazonaws.com/eleva-camisa-amarelo-claro-1_640x640.webp",
+    "categoryName": "Roupas",
+    "tags": ["camisa", "amarela"]
+}
+
+
+###
+POST /product HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+    "name": "Respira",
+    "title": "a beautiful respira",
+    "price": 1000000,
+    "description": "a right-sized respira",
+    "discount": 50000,
+    "image": "https://kauan-result-list-de-e-commerce.s3.amazonaws.com/image+1.svg",
+    "categoryName": "respira",
+    "tags": ["respira", "azul"]
 }

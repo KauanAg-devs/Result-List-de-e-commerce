@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.text-very-small {
+  @apply text-base;
+  font-size: 0.60rem;
+}
 .text-0dot89vmax {
   @apply text-base;
   font-size: 0.89vmax; 
@@ -26,19 +30,22 @@
 
 
 
+
 /*App css*/
 body {
   font-family: 'Poppins', sans-serif
 }
-body, html {
+body, html, #root {
   width: 100%;
+  overflow-x: hidden;
   padding: 0;
   margin: 0;
+  display: flex;
+  align-items: center;
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: white;
-  display: flex;
   flex-direction: column;
 }
 
