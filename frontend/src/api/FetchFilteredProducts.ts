@@ -5,7 +5,6 @@ export async function fetchFilteredProducts(
   order: 'asc' | 'desc' = 'asc'
 ) {
   const url = `http://localhost:3000/product?pages=${pages}&limit=${limit}&orderBy=${orderBy}&order=${order}`;
-
   try {
     const response = await fetch(url);
     

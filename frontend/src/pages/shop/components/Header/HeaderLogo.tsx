@@ -1,13 +1,13 @@
-import LogoSvg from '../../../../images/Frame 168.svg'
+import LogoSvg from '../../../../images/Frame 168.svg';
 
 export default function HeaderLogo() {
     return (
-        <div className="w-full flex justify-center items-center">
+        <div className="w-[14%] flex-shrink-0">
             <img 
                 src={LogoSvg} 
                 alt="logo" 
-                className="w-32 h-auto max-w-full" 
+                className="ml-5 w-32 h-auto" 
             />
         </div>
-    )
+    );
 }

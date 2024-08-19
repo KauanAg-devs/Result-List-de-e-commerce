@@ -18,7 +18,7 @@ function Main(): JSX.Element {
       try {
         const data = await fetchFilteredProducts(page, filterValue, orderBy, order);
         setProducts(data.products);
-        setTotalProducts(data.totalProducts);
+        setTotalProducts(data.totalProducts);        
       } catch (error) {
         console.error('Failed to fetch products:', error);
       }

@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   ParseIntPipe,
   Post,
   Query,
@@ -25,12 +26,13 @@ export class ProductController {
   @Post()
   async createProduct(@Body() productDto: ProductDto) {
     const { name, color, size, categoryName, tags } = productDto;
-
     const category =
       await this.categoryService.findOrCreateCategory(categoryName);
+
     const resolvedTags = tags
       ? await this.tagsService.findOrCreateTags(tags)
       : [];
+
     const sku = this.skuService.generateSku(name, color, size);
 
     return this.productService.createProduct(
@@ -39,6 +41,19 @@ export class ProductController {
       sku,
       resolvedTags,
     );
+  }
+
+  @Get('details/:sku')
+  getProductDetails(@Param() sku: { sku: string }) {
+    return this.productService.getProductDetails(sku.sku);
+  }
+
+  @Get('getProductsByCategory/:categoryId')
+  async getProductsByCategory(@Param() categoryId: { categoryId: string }) {
+    const products = await this.productService.getProductsByCategory(
+      categoryId.categoryId,
+    );
+    return products;
   }
 
   @Get()
@@ -54,7 +69,6 @@ export class ProductController {
       orderBy,
       order,
     );
-    console.log(products.details);
 
     return { products, totalProducts };
   }

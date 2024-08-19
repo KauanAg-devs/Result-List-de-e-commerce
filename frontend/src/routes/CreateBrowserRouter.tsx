@@ -7,6 +7,7 @@ import Cart from "../pages/cart/cart";
 import { ReactNode } from "react";
 import { About } from "../pages/about/About";
 import { Contact } from "../pages/contact/Contact";
+import { ProductDetails } from "../pages/product-details/ProductDetails";
 
 type RouteObject = {
     path: string;
@@ -26,6 +27,7 @@ const noProtectedroutes = [
 
 const protectedRoutes = [
     createRouter('/shop', <App/>, <ProtectedRoute/>),
+    createRouter('/shop/details/:sku', <ProductDetails/>, <ProtectedRoute/>),
     createRouter('/', <Home/>, <ProtectedRoute/>),
     createRouter('/cart', <Cart/>, <ProtectedRoute/>),
     createRouter('/about', <About/>, <ProtectedRoute/>),

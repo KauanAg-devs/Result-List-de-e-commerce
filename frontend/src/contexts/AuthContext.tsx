@@ -18,7 +18,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const checkJwtAuthentication = async () => {
         try {
             let response = await JwtService.fetchStatus();
-
+            
             if (response.ok) {
                 const data = await response.json();
                 setIsAuthenticated(data.isAuthenticated);

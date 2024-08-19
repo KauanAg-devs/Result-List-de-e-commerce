@@ -11,7 +11,6 @@ type ProductSectionsProps = {
 
 function ProductSections({ filterValue, totalProducts, page, setPage }: ProductSectionsProps) {
   const [showPreviousButton, setShowPreviousButton] = useState<boolean>(false);
-  console.log((filterValue * page), totalProducts);
   
   const handlePreviousButtonClick = () => {
     if (page > 1) {

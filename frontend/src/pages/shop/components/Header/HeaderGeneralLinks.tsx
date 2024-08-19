@@ -2,11 +2,19 @@ import { Link } from "react-router-dom";
 
 export default function HeaderGeneralLinks() {
   return (
-   <div className="w-40 lg:w-[45vmax] relative flex justify-evenly">
-     <Link to={'/'} className="text-black text-1dot2vmax not-italic font-medium leading-custom">Home</Link>
-     <Link to={'/shop'} className="text-black text-1dot2vmax not-italic font-medium leading-custom">Shop</Link>
-     <Link to={'/about'}className="text-black text-1dot2vmax not-italic font-medium leading-custom">About</Link>
-     <Link to={'/contact'} className="text-black text-1dot2vmax not-italic font-medium leading-custom">Contact</Link>
-   </div>
-  )
+    <div className="w-full mx-auto flex justify-evenly items-center py-4">
+      <Link to="/" className="text-black text-xs sm:text-sm md:text-base lg:text-lg font-medium leading-tight hover:text-gray-700">
+        Home
+      </Link>
+      <Link to="/shop" className="sm:ml-2 text-black text-xs sm:text-sm md:text-base lg:text-lg font-medium leading-tight hover:text-gray-700">
+        Shop
+      </Link>
+      <Link to="/about" className="sm:ml-2 text-black text-xs sm:text-sm md:text-base lg:text-lg font-medium leading-tight hover:text-gray-700">
+        About
+      </Link>
+      <Link to="/contact" className="sm:ml-2 text-black text-xs sm:text-sm md:text-base lg:text-lg font-medium leading-tight hover:text-gray-700">
+        Contact
+      </Link>
+    </div>
+  );
 }

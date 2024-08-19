@@ -16,49 +16,19 @@ export class ProductService {
 
     try {
       const product = await this.prisma.product.create({
+        data: { sku, name, image, title, price, discount },
+      });
+
+      await this.prisma.productDetails.create({
         data: {
-          image,
-          name,
-          title,
-          price,
-          discount: discount || undefined,
-          details: {
-            create: {
-              sku,
-              description: description || '',
-              category: { connect: { id: category.id } },
-              tags: tags
-                ? { connect: tags.map((tag) => ({ id: tag.id })) }
-                : undefined,
-              customerCount: 0,
-              fiveStarCount: 0,
-            },
-          },
-        },
-        include: {
-          details: {
-            include: {
-              tags: true,
-            },
-          },
+          description,
+          tags: { connect: tags },
+          sku: product.sku,
+          categoryId: category.id,
         },
       });
 
-      await this.prisma.productDetails.update({
-        where: { id: product.details.id },
-        data: { productId: product.id },
-      });
-
-      return this.prisma.product.findUnique({
-        where: { id: product.id },
-        include: {
-          details: {
-            include: {
-              tags: true,
-            },
-          },
-        },
-      });
+      return product;
     } catch (error) {
       console.error(error);
       throw new HttpException(
@@ -67,6 +37,7 @@ export class ProductService {
       );
     }
   }
+
   async getProducts(
     page: number = 1,
     limit: number = 16,
@@ -81,14 +52,6 @@ export class ProductService {
       orderBy: {
         [sortBy]: order,
       },
-      include: {
-        details: {
-          include: {
-            category: true,
-            tags: true,
-          },
-        },
-      },
     });
 
     if (products.length === 0 && page > 1) {
@@ -100,48 +63,28 @@ export class ProductService {
     };
   }
 
-  async getRelatedProducts(productId: string, quantity: number = 4) {
-    const product = await this.prisma.product.findUnique({
-      where: { id: productId },
-      include: {
-        details: {
-          include: {
-            category: true,
-          },
-        },
-      },
+  getProductDetails(sku: string) {
+    return this.prisma.productDetails.findUnique({
+      where: { sku: sku },
     });
+  }
 
-    if (!product || !product.details?.category) {
-      return [];
-    }
+  getProductsByCategory(categoryId: string) {
+    return this.prisma.productDetails.findMany({
+      where: { categoryId },
+    });
+  }
 
-    return this.prisma.product.findMany({
-      take: quantity,
-      where: {
-        details: {
-          category: {
-            id: product.details.category.id,
-          },
-        },
-        id: {
-          not: productId,
-        },
-      },
-      include: {
-        details: {
-          include: {
-            category: true,
-          },
-        },
-      },
+  getProductsByTags(tag: string) {
+    return this.prisma.productDetails.findMany({
+      where: { tags: { some: { name: tag } } },
     });
   }
 
   async deleteAllProducts() {
-    return Promise.all([
-      this.prisma.product.deleteMany(),
-      this.prisma.productDetails.deleteMany(),
-    ]);
+    return this.prisma.$transaction(async (prisma) => {
+      await prisma.productDetails.deleteMany();
+      await prisma.product.deleteMany();
+    });
   }
 }

@@ -8,7 +8,7 @@ import { QualityBar } from './components/Main/QualityBar';
 
 function App() {
   return (
-    <div className="bg-white flex items-center flex-col w-[98%] h-[200%]">
+    <div className="bg-white flex items-center flex-col w-[90%] h-[200%]">
      <Header/>
      <Navigation/>
      <Main/>

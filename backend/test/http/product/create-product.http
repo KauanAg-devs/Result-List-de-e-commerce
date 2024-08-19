@@ -6,13 +6,15 @@ Content-Type: application/json
 
 {
     "name": "brinquedo",
-    "title": "brinquedo vermelho",
+    "title": "brinquedo azul",
     "price": 100000,
     "description": "um brinquedo vermelho",
     "discount": 50000,
     "image": "https://imgs.search.brave.com/vgb050i6W3yteZaDJWiPNHYLwuuYKvkYivCHq1ziDGc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNzkx/MjA1ODAvcHQvZm90/by9icmlucXVlZG9z/LWVtLWMlQzMlQjRt/b2RhLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1xVWVlQkdn/SjNGb3JIUEthcGJQ/Z2JVNk5qOVhncnlt/aW01TThRR2w5ejI4/PQ",
-    "categoryName": "brinquedos",
-    "tags": ["brinquedo", "vermelho"]
+    "categoryName": "carros",
+    "tags": ["brinquedo", "azul"],
+    "color": "red",
+    "size": "small"
 }
 ###
 POST /product HTTP/1.1
@@ -41,7 +43,6 @@ Content-Type: application/json
     "title": "camisa azul",
     "price": 50,
     "description": "uma camisa azul",
-    "discount": 10,
     "image": "https://kauan-result-list-de-e-commerce.s3.us-east-1.amazonaws.com/D40-7954-008_zoom1.webp",
     "categoryName": "Roupas",
     "tags": ["camisa", "azul"]
