@@ -11,7 +11,7 @@ Content-Type: application/json
     "description": "caminhao",
     "discount": 50000,
     "image": "https://imgs.search.brave.com/WenE2tVxWcM2slhIU0hmYlGUCCKAdAqVKio6Oj8oDa8/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9yYW5k/b20taW1hZ2UtcGVw/ZWJpZ290ZXMudmVy/Y2VsLmFwcC9hcGkv/cmFuZG9tLWltYWdl.jpeg",
-    "categoryName": "caminhão",
+    "categoryName": "carroddel",
     "tags": ["caminhão", "preto"],
     "color": "preto",
     "size": "G"

@@ -19,7 +19,7 @@ export function ProductsImages({ productsWithSameCategory, product }: ProductsIm
         {productsWithSameCategory?.map(product => (
           <img
             key={product.sku}
-            className="object-cover my-1 rounded-md w-6 h-6 md:w-24 md:h-16 lg:h-16 lg:w-16 cursor-pointer" // Adiciona cursor pointer
+            className="object-cover my-1 rounded-md w-6 h-6 md:w-24 md:h-16 lg:h-16 lg:w-16 cursor-pointer" 
             src={product.image}
             alt={product.name}
             onClick={() => handleImageClick(product.image)}
