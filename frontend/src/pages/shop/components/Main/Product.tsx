@@ -2,7 +2,10 @@ import { useState } from "react";
 import ShareImage from '../../../../images/Frame 11.svg';
 import CompareImage from '../../../../images/Frame 12.svg';
 import LikeImage from '../../../../images/Frame 10.svg';
-import { Link } from "react-router-dom";
+import { setProduct } from "../../../../productSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { formatPrice } from "../../../../utils/formatPrice";
 
 export type ProductType = {
   image: string;
@@ -11,15 +14,19 @@ export type ProductType = {
   price: string;
   discount?: string;
   createdAt?: string;
-  details: {sku: string}
+  id?: string;
+  sku: string;
 };
 
-function Product({ details, createdAt, image, name, title, price, discount }: ProductType) {
+function Product({ sku, createdAt, image, name, title, price, discount }: ProductType) {
   const [showProductDetails, setShowProductDetails] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [navigate, dispatch] = [useNavigate(), useDispatch()];
+  const viewProductDetails = ()=> setShowProductDetails(prev => !prev);
 
-  const viewProductDetails = () => {
-    setShowProductDetails(prev => !prev);
+  const navigateToProductDetails = () => {
+    dispatch(setProduct({ sku, createdAt, image, name, title, price, discount }));
+    navigate(`/shop/details/${sku}`);
   };
 
   const discountPercentage = discount ? Math.round((parseInt(price) - parseInt(discount)) / parseInt(price) * 100) : null;
@@ -33,11 +40,13 @@ function Product({ details, createdAt, image, name, title, price, discount }: Pr
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className={`absolute inset-0 flex flex-col justify-center items-center bg-[#3A3A3A80] text-white transition-opacity duration-300 ease-in-out transform ${showProductDetails ? 'opacity-100' : 'opacity-0'} `}>
-        <Link
-         to={`/shop/details/${details.sku}`}
-         className="z-10 w-3/4 h-10 bg-white text-center items-center justify-center flex text-[#b88e2f] font-semibold border-none rounded-md text-xs sm:text-sm">
-          See Details
-        </Link>
+      <div
+        onClick={navigateToProductDetails}
+        className="z-10 w-3/4 h-10 bg-white text-center items-center justify-center flex text-[#b88e2f] font-semibold border-none rounded-md text-xs sm:text-sm">
+         See Details
+      </div>
+
+
         <div className="flex justify-evenly items-center w-full mt-2">
           <img className="w-6 sm:w-8 md:w-12" src={ShareImage} alt="Share" onClick={(e) => e.stopPropagation()} />
           <img className="w-8 sm:w-10 md:w-16" src={CompareImage} alt="Compare" onClick={(e) => e.stopPropagation()} />
@@ -59,8 +68,8 @@ function Product({ details, createdAt, image, name, title, price, discount }: Pr
         <div className="text-xs sm:text-sm md:text-lg font-bold text-[#3A3A3A] truncate">{name}</div>
         <div className="text-xs sm:text-sm md:text-sm text-[#898989] font-medium mt-1 truncate">{title}</div>
         <div className="flex items-center">
-          <div className="text-xs sm:text-sm md:text-base font-semibold text-[#3A3A3A] truncate">Rp {discount || price}</div>
-          {discount && <div className="text-xs sm:text-sm md:text-sm ml-2 text-[#ccc] line-through truncate">Rp {price}</div>}
+          <div className="text-xs sm:text-sm md:text-base font-semibold text-[#3A3A3A] truncate">{formatPrice(discount || price)}</div>
+          {discount && <div className="text-xs sm:text-sm md:text-sm ml-2 text-[#ccc] line-through truncate">{formatPrice(price)}</div>}
         </div>
       </div>
     </div>

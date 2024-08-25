@@ -3,11 +3,10 @@ import Auth from "../pages/auth/Auth";
 import ProtectedRoute from "./ProtectedRoutes";
 import App from "../pages/shop/Shop";
 import Home from "../pages/home/Home";
-import Cart from "../pages/cart/cart";
+import Cart from "../pages/cart/Cart";
 import { ReactNode } from "react";
-import { About } from "../pages/about/About";
-import { Contact } from "../pages/contact/Contact";
 import { ProductDetails } from "../pages/product-details/ProductDetails";
+import { Checkout } from "../pages/checkout/Checkout";
 
 type RouteObject = {
     path: string;
@@ -30,8 +29,7 @@ const protectedRoutes = [
     createRouter('/shop/details/:sku', <ProductDetails/>, <ProtectedRoute/>),
     createRouter('/', <Home/>, <ProtectedRoute/>),
     createRouter('/cart', <Cart/>, <ProtectedRoute/>),
-    createRouter('/about', <About/>, <ProtectedRoute/>),
-    createRouter('/contact', <Contact/>, <ProtectedRoute/>)
+    createRouter('/checkout', <Checkout/>, <ProtectedRoute/>),
 ]
 
 export const router = createBrowserRouter([

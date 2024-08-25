@@ -5,16 +5,16 @@ Host: localhost:3000
 Content-Type: application/json
 
 {
-    "name": "brinquedo",
-    "title": "brinquedo azul",
+    "name": "caminhao",
+    "title": "caminhao",
     "price": 100000,
-    "description": "um brinquedo vermelho",
+    "description": "caminhao",
     "discount": 50000,
-    "image": "https://imgs.search.brave.com/vgb050i6W3yteZaDJWiPNHYLwuuYKvkYivCHq1ziDGc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNzkx/MjA1ODAvcHQvZm90/by9icmlucXVlZG9z/LWVtLWMlQzMlQjRt/b2RhLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1xVWVlQkdn/SjNGb3JIUEthcGJQ/Z2JVNk5qOVhncnlt/aW01TThRR2w5ejI4/PQ",
-    "categoryName": "carros",
-    "tags": ["brinquedo", "azul"],
-    "color": "red",
-    "size": "small"
+    "image": "https://imgs.search.brave.com/WenE2tVxWcM2slhIU0hmYlGUCCKAdAqVKio6Oj8oDa8/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9yYW5k/b20taW1hZ2UtcGVw/ZWJpZ290ZXMudmVy/Y2VsLmFwcC9hcGkv/cmFuZG9tLWltYWdl.jpeg",
+    "categoryName": "caminhão",
+    "tags": ["caminhão", "preto"],
+    "color": "preto",
+    "size": "G"
 }
 ###
 POST /product HTTP/1.1

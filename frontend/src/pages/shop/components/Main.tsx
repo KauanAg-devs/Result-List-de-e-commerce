@@ -12,20 +12,23 @@ function Main(): JSX.Element {
   const [totalProducts, setTotalProducts] = useState<number>(0);
   const [orderBy, setOrderBy] = useState<'price' | 'discount' | 'name'>('price');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   useEffect(() => {
     const loadProducts = async () => {
-      try {
-        const data = await fetchFilteredProducts(page, filterValue, orderBy, order);
+      try {        
+        const data = await fetchFilteredProducts(page, filterValue, orderBy, order, selectedCategory); 
         setProducts(data.products);
-        setTotalProducts(data.totalProducts);        
+        console.log(data.products);
+        
+        setTotalProducts(data.totalProducts);
       } catch (error) {
         console.error('Failed to fetch products:', error);
       }
     };
 
     loadProducts();
-  }, [filterValue, page, orderBy, order]);
+  }, [filterValue, page, orderBy, order, selectedCategory]);
 
   return (
     <main className="container relative items-center flex flex-col min-h-[90vh] w-full">
@@ -35,6 +38,7 @@ function Main(): JSX.Element {
         setProducts={setProducts}
         setOrderBy={setOrderBy}
         setOrder={setOrder}
+        setSelectedCategory={setSelectedCategory} 
       />
       
       <ProductsContainer products={products} />

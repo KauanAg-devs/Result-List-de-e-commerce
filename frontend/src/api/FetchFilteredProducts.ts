@@ -2,9 +2,10 @@ export async function fetchFilteredProducts(
   pages: number,
   limit: number,
   orderBy: 'price' | 'discount' | 'name' = 'price',
-  order: 'asc' | 'desc' = 'asc'
-) {
-  const url = `http://localhost:3000/product?pages=${pages}&limit=${limit}&orderBy=${orderBy}&order=${order}`;
+  order: 'asc' | 'desc' = 'asc',
+  selectedCategory: number | null
+) {  
+  const url = `http://localhost:3000/product?pages=${pages}&limit=${limit}&orderBy=${orderBy}&order=${order}&categoryId=${selectedCategory ?? ''}`;
   try {
     const response = await fetch(url);
     

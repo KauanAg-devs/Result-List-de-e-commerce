@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ProductType } from './Product';
-import ShowProductsMessage from './ShowProductMessages';
 import Select, { SingleValue } from 'react-select';
+import FilterProductsByCategory from './FilterByCategory';
 
 export type OptionType = {
   value: {
@@ -20,9 +20,10 @@ type FilterProps = {
   setProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
   setOrderBy: React.Dispatch<React.SetStateAction<'price' | 'discount' | 'name'>>;
   setOrder: React.Dispatch<React.SetStateAction<'asc' | 'desc'>>;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
-function FilterProducts({ setOrderBy, setOrder, setFilterValue, products }: FilterProps) {
+function FilterProducts({ setOrderBy, setOrder, setFilterValue, products, setSelectedCategory }: FilterProps) {
   const [inputValue, setInputValue] = useState('');
 
   const applyFilter = (value: string) => {
@@ -62,7 +63,10 @@ function FilterProducts({ setOrderBy, setOrder, setFilterValue, products }: Filt
 
   return (
     <div className="w-full h-auto bg-[#f9f1e7] flex justify-between items-center px-4 py-4 md:px-6 md:py-6 md:space-y-0 md:space-x-4">
-      <ShowProductsMessage productsCount={products.length} />
+      <FilterProductsByCategory
+        productsCount={products.length}
+        setSelectedCategory={setSelectedCategory}
+      />
 
       <div className="flex md:flex-row justify-center items-center md:space-y-0 md:space-x-4 max-w-3xl">
         <div className="flex items-center space-x-2 md:space-x-4">

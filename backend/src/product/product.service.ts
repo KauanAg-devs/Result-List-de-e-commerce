@@ -10,7 +10,7 @@ export class ProductService {
     productDto: ProductDto,
     category: { id: string },
     sku: string,
-    tags?: { id: string }[],
+    tags?: { name: string }[] | undefined,
   ) {
     const { name, image, title, price, discount, description } = productDto;
 
@@ -22,9 +22,9 @@ export class ProductService {
       await this.prisma.productDetails.create({
         data: {
           description,
-          tags: { connect: tags },
           sku: product.sku,
           categoryId: category.id,
+          tags: { connect: tags },
         },
       });
 
@@ -43,42 +43,71 @@ export class ProductService {
     limit: number = 16,
     sortBy: 'name' | 'discount' | 'price' = 'price',
     order: 'asc' | 'desc' = 'asc',
+    categoryId?: string,
   ) {
-    const totalProducts = await this.prisma.product.count();
+    const totalProductsInCategory = await this.prisma.productDetails.count({
+      where: categoryId ? { categoryId } : undefined,
+    });
 
-    const products = await this.prisma.product.findMany({
+    const productDetails = await this.prisma.productDetails.findMany({
+      where: categoryId ? { categoryId } : undefined,
       take: limit,
       skip: (page - 1) * limit,
+    });
+
+    const skus = productDetails.map((detail) => detail.sku);
+
+    const products = await this.prisma.product.findMany({
+      where: { sku: { in: skus } },
       orderBy: {
         [sortBy]: order,
       },
     });
 
     if (products.length === 0 && page > 1) {
-      return this.getProducts(1, limit, sortBy, order);
+      return this.getProducts(1, limit, sortBy, order, categoryId);
     }
+
     return {
       products,
-      totalProducts,
+      totalProducts: totalProductsInCategory,
     };
   }
 
   getProductDetails(sku: string) {
     return this.prisma.productDetails.findUnique({
       where: { sku: sku },
+      include: { tags: true, category: true },
     });
   }
 
-  getProductsByCategory(categoryId: string) {
-    return this.prisma.productDetails.findMany({
+  async getProductsByCategory(categoryId: string) {
+    const productDetails = await this.prisma.productDetails.findMany({
       where: { categoryId },
+      take: 4,
     });
+
+    if (productDetails.length === 0) return [];
+    const skus = productDetails.map((product) => product.sku);
+
+    const products = await this.prisma.product.findMany({
+      where: { sku: { in: skus } },
+    });
+
+    return products;
   }
 
-  getProductsByTags(tag: string) {
-    return this.prisma.productDetails.findMany({
-      where: { tags: { some: { name: tag } } },
+  async getProductsByTags(tags: string[], skip: number = 0) {
+    const productsDetails = await this.prisma.productDetails.findMany({
+      where: {
+        tags: { some: { name: { in: tags } } },
+      },
+      include: { product: true },
+      take: 4,
+      skip,
     });
+
+    return productsDetails.map((product) => product.product);
   }
 
   async deleteAllProducts() {
