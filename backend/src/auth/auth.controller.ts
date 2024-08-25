@@ -12,13 +12,20 @@ import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { UserDto } from 'src/user/user.dto';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
+  @ApiOperation({ summary: 'Login' })
+  @ApiResponse({
+    status: 200,
+    description: 'Logged in successfully',
+  })
   async login(@Req() req: any, @Res() res: Response) {
     const { accessToken, refreshToken } = await this.authService.login(
       req.user,
@@ -40,6 +47,11 @@ export class AuthController {
   }
 
   @Post('signup')
+  @ApiOperation({ summary: 'Signup' })
+  @ApiResponse({
+    status: 200,
+    description: 'Logged in successfully',
+  })
   async signup(@Body() user: UserDto, @Res() res: Response) {
     const { accessToken, refreshToken } = await this.authService.signup(user);
 
@@ -58,6 +70,11 @@ export class AuthController {
     return res.json({ message: 'Logged in successfully' });
   }
 
+  @ApiOperation({ summary: 'Logout' })
+  @ApiResponse({
+    status: 200,
+    description: 'Logged out successfully',
+  })
   @Post('logout')
   async logout(@Res() res: Response) {
     res.cookie('accessToken', '', {
@@ -77,6 +94,11 @@ export class AuthController {
     return res.json({ message: 'Logged out successfully' });
   }
 
+  @ApiOperation({ summary: 'Refresh' })
+  @ApiResponse({
+    status: 200,
+    description: 'Token refreshed',
+  })
   @Post('refresh')
   async refresh(@Req() req: any, @Res() res: Response) {
     const refreshToken = req.cookies['refreshToken'];
@@ -97,6 +119,11 @@ export class AuthController {
     return res.json({ message: 'token refreshed' });
   }
 
+  @ApiOperation({ summary: 'Check auth status' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return the auth status',
+  })
   @Get('status')
   async checkAuthStatus(@Req() req: any, @Res() res: Response) {
     const token = req.cookies['accessToken'];

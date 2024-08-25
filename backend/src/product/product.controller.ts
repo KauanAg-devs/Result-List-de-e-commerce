@@ -13,7 +13,9 @@ import { ProductDto } from './product.dto';
 import { CategoryService } from 'src/category/category.service';
 import { SkuService } from 'src/sku/sku.service';
 import { TagsService } from 'src/tags/tags.service';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('product')
 @Controller('product')
 export class ProductController {
   constructor(
@@ -24,6 +26,12 @@ export class ProductController {
   ) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a product' })
+  @ApiResponse({
+    status: 201,
+    description: `The product has been successfully created`,
+    type: ProductDto,
+  })
   async createProduct(@Body() productDto: ProductDto) {
     const { name, color, size, categoryName, tags } = productDto;
     const category =
@@ -43,11 +51,21 @@ export class ProductController {
     );
   }
 
+  @ApiOperation({ summary: 'Get product details' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return the product details',
+  })
   @Get('details/:sku')
   getProductDetails(@Param() sku: { sku: string }) {
     return this.productService.getProductDetails(sku.sku);
   }
 
+  @ApiOperation({ summary: 'Get products by category' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return the products by category',
+  })
   @Get('getProductsByCategory/:categoryId')
   async getProductsByCategory(@Param() categoryId: { categoryId: string }) {
     const products = await this.productService.getProductsByCategory(
@@ -56,6 +74,11 @@ export class ProductController {
     return products;
   }
 
+  @ApiOperation({ summary: 'Get products by tags' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return the products by tags',
+  })
   @Get('getProductsByTags/:tags')
   async getProductsByTags(
     @Param('tags') tags: string,
@@ -71,6 +94,11 @@ export class ProductController {
     return products;
   }
 
+  @ApiOperation({ summary: 'Get products' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return the products',
+  })
   @Get()
   async getProducts(
     @Query('pages', ParseIntPipe) pages?: number,
@@ -90,6 +118,11 @@ export class ProductController {
     return { products, totalProducts };
   }
 
+  @ApiOperation({ summary: 'Delete a product' })
+  @ApiResponse({
+    status: 200,
+    description: 'The product has been successfully deleted',
+  })
   @Delete('deleteAll')
   async deleteAllProducts() {
     await this.productService.deleteAllProducts();
