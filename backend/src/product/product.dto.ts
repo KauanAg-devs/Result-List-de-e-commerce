@@ -1,3 +1,4 @@
+
 import {
   IsString,
   IsOptional,
@@ -9,6 +10,7 @@ import {
 
 export class ProductDto {
   //product
+
   @IsString()
   @IsNotEmpty()
   image: string;

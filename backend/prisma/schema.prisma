@@ -8,50 +8,38 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(cuid())
-  name        String
-  email       String   @unique
-  password    String
-  role        String   @default("user")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
-model Product {
-  id          String          @id @default(cuid())
-  name        String
-  image       String
-  title       String
-  price       Int
-  discount    Int?
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
 
-  details     ProductDetails? @relation("ProductToDetails")
+model Product {
+  id             String          @id @default(cuid())
+  name           String
+  image          String
+  title          String
+  price          Int
+  discount       Int?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  sku            String          @unique
+  productDetails ProductDetails?
 }
 
 model ProductDetails {
-  id            String   @id @default(cuid())
-  sku           String   @unique
-  productId     String   @unique
+  id            String    @id @default(cuid())
   description   String
-  fiveStarCount Int      @default(0)
-  customerCount Int      @default(0)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
   categoryId    String?
   category      Category? @relation(fields: [categoryId], references: [id])
   tags          Tag[]     @relation("ProductDetailsTags")
-  product       Product   @relation("ProductToDetails", fields: [productId], references: [id])
-}
-
-model Tag {
-  id              String   @id @default(cuid())
-  name            String   @unique
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  productDetails  ProductDetails[] @relation("ProductDetailsTags")
+  sku           String    @unique
+  product       Product   @relation(fields: [sku], references: [sku])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model Category {
@@ -59,6 +47,13 @@ model Category {
   name            String   @unique
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-
   productDetails  ProductDetails[]
+}
+
+model Tag { 
+  id              String   @id @default(cuid())
+  name            String   @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  productDetails  ProductDetails[] @relation("ProductDetailsTags")
 }

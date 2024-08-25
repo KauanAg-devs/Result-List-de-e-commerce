@@ -5,9 +5,11 @@ type ProductsContainerProps = {
 };
 
 function ProductsContainer({ products }: ProductsContainerProps) {
-
+  
   const showProducts = products.map((product, index) => (
     <Product
+      sku={product.sku}
+      createdAt={product.createdAt}
       key={index}
       price={product.price}
       image={product.image}

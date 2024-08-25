@@ -13,7 +13,7 @@ export class CategoryService {
   }
 
   async findOrCreateCategory(categoryName: string) {
-    let category = await this.findOne(categoryName);
+    let category = await this.findOne(categoryName.toLowerCase());
 
     if (!category) {
       category = await this.create({ name: categoryName });
