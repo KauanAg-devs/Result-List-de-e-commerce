@@ -19,17 +19,14 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
-  @Post('login')
-  @ApiOperation({ summary: 'Login' })
+  @Post('signup')
+  @ApiOperation({ summary: 'Signup' })
   @ApiResponse({
     status: 200,
     description: 'Logged in successfully',
   })
-  async login(@Req() req: any, @Res() res: Response) {
-    const { accessToken, refreshToken } = await this.authService.login(
-      req.user,
-    );
+  async signup(@Body() user: UserDto, @Res() res: Response) {
+    const { accessToken, refreshToken } = await this.authService.signup(user);
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
@@ -46,14 +43,17 @@ export class AuthController {
     return res.json({ message: 'Logged in successfully' });
   }
 
-  @Post('signup')
-  @ApiOperation({ summary: 'Signup' })
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  @ApiOperation({ summary: 'Login' })
   @ApiResponse({
     status: 200,
     description: 'Logged in successfully',
   })
-  async signup(@Body() user: UserDto, @Res() res: Response) {
-    const { accessToken, refreshToken } = await this.authService.signup(user);
+  async login(@Req() req: any, @Res() res: Response) {
+    const { accessToken, refreshToken } = await this.authService.login(
+      req.user,
+    );
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
