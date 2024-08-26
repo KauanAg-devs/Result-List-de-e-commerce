@@ -3,14 +3,15 @@
 
 Um projeto simples de e-commerce.
 
-## Configuração do Ambiente
+
+## Configuração do Ambiente - Backend
 
 Siga os passos abaixo para configurar o ambiente de desenvolvimento:
 
 ### 1. Navegue até o diretório `backend`
 
 ```bash
-cd backend
+cd backend && npm i
 ```
 
 ### 2. Crie o arquivo `.env`
@@ -42,7 +43,28 @@ docker-compose up -d
 Por fim, rode o servidor de desenvolvimento:
 
 ```bash
+npm run start
+```
+
+## Configuração do Ambiente - Frontend
+
+### Para rodar o Frontend, é necessário rodar o Backend primeiro.
+### Siga os passos anteriores para fazer o Frontend funcionar sem erros.
+
+## Navegue até o diretório `frontend`
+
+```bash
+cd frontend && npm i
+```
+
+## Inicie o Frontend
+
+Assim, você poderá rodar a interface.
+
+
+```bash
 npm run dev
 ```
+
 
 Agora você deve estar pronto para começar a desenvolver!
