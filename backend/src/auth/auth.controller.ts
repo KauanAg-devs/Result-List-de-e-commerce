@@ -13,6 +13,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { UserDto } from 'src/user/user.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -114,5 +115,26 @@ export class AuthController {
     } catch {
       return res.status(401).json({ isAuthenticated: false });
     }
+  }
+
+  @Post('logout')
+  @ApiOperation({ summary: 'Logout' })
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    status: 200,
+    description: 'Logged out successfully',
+  })
+  async logout(@Req() req: any, @Res() res: Response) {
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      path: '/',
+      domain: 'localhost',
+    });
+    res.clearCookie('accessToken', {
+      httpOnly: false,
+      path: '/',
+      domain: 'localhost',
+    });
+    return res.json({ message: 'Logged out successfully' });
   }
 }

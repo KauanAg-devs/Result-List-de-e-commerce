@@ -20,7 +20,7 @@ type FilterProps = {
   setProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
   setOrderBy: React.Dispatch<React.SetStateAction<'price' | 'discount' | 'name'>>;
   setOrder: React.Dispatch<React.SetStateAction<'asc' | 'desc'>>;
-  setSelectedCategory: React.Dispatch<React.SetStateAction<number | null>>;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 function FilterProducts({ setOrderBy, setOrder, setFilterValue, products, setSelectedCategory }: FilterProps) {
