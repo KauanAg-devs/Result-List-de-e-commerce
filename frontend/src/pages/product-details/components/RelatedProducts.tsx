@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Product, { ProductType } from "../../shop/components/Main/Product";
 import { ProductDetailsType } from "./Main";
+import { getAccessTokenFromCookies } from "../../../utils/getAcessTokenFromCookies";
 
 type RelatedProducts = { 
   product: ProductType;
@@ -13,7 +14,13 @@ export function RelatedProducts({ tags }: { tags?: string }): JSX.Element {
 
   const getRelatedProducts = async (tags: string, skip: number = 0) => {
     try {
-      const response = await fetch(`http://localhost:3000/product/getProductsByTags/${tags}?skip=${skip}`);
+      const accessToken = getAccessTokenFromCookies();
+      const response = await fetch(`http://localhost:3000/product/getProductsByTags/${tags}?skip=${skip}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    });
       if (!response.ok) throw new Error('Failed to fetch products');
       return await response.json();
     } catch (err) {

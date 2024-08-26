@@ -42,7 +42,7 @@ export class AuthService {
     const { name, email, password } = user;
 
     if (await this.userService.getUser(email)) {
-      throw new UnauthorizedException('some account is using this email.');
+      throw new UnauthorizedException('this account already exists.');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -67,5 +67,9 @@ export class AuthService {
     } catch (e) {
       throw new UnauthorizedException('Invalid refresh token');
     }
+  }
+
+  async findUserByEmail(email: string) {
+    return this.userService.getUser(email);
   }
 }

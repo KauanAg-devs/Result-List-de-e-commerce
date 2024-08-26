@@ -11,8 +11,27 @@ function FilterProductsByCategory({ productsCount, setSelectedCategory }: Filter
   const [categories, setCategories] = useState<{ name: string, id: string }[]>([]);
   const [showCategories, setShowCategories] = useState(false);
 
+  const getAccessTokenFromCookies = () => {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    const accessTokenCookie = cookies.find(cookie => cookie.startsWith('accessToken='));
+    return accessTokenCookie ? accessTokenCookie.split('=')[1] : null;
+  };
+
   const getCategories = async () => {
-    const data = await fetch('http://localhost:3000/category/getAllCategories');
+    const accessToken = getAccessTokenFromCookies();
+
+    if (!accessToken) {
+      console.error('Access token not found');
+      return [];
+    }
+
+    const data = await fetch('http://localhost:3000/category/getAllCategories', {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`  
+      }
+    });
+    
     const response = await data.json();
     return response;
   };

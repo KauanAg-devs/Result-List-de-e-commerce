@@ -35,7 +35,7 @@ export class AuthController {
     });
 
     res.cookie('accessToken', accessToken, {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
     });
@@ -62,7 +62,7 @@ export class AuthController {
     });
 
     res.cookie('accessToken', accessToken, {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
     });
@@ -87,7 +87,7 @@ export class AuthController {
       await this.authService.refreshToken(refreshToken);
 
     res.cookie('accessToken', newAccessToken, {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
     });

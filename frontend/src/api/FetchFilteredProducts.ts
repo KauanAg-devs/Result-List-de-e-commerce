@@ -6,8 +6,27 @@ export async function fetchFilteredProducts(
   selectedCategory: number | null
 ) {  
   const url = `http://localhost:3000/product?pages=${pages}&limit=${limit}&orderBy=${orderBy}&order=${order}&categoryId=${selectedCategory ?? ''}`;
+
+  const getAccessTokenFromCookies = () => {
+    const cookieString = document.cookie;    
+    const cookies = cookieString.split('; ');
+    const accessTokenCookie = cookies.find(cookie => cookie.startsWith('accessToken='));
+    return accessTokenCookie ? accessTokenCookie.split('=')[1] : null;
+  };
+
   try {
-    const response = await fetch(url);
+    const accessToken = getAccessTokenFromCookies(); 
+
+    if (!accessToken) {
+      console.error('Access token not found');
+      return null;
+    }
+
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`  
+      }
+    });
     
     if (!response.ok) {
       throw new Error('Network response was not ok');

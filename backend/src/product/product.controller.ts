@@ -6,6 +6,7 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductDto } from './product.dto';
 import { CategoryService } from 'src/category/category.service';
@@ -14,6 +15,7 @@ import { TagsService } from 'src/tags/tags.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductQueryService } from './product.query.service';
 import { ProductCreationService } from './product.creation.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('product')
 @Controller('product')
@@ -27,6 +29,7 @@ export class ProductController {
   ) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Create a product' })
   @ApiResponse({
     status: 201,
@@ -52,22 +55,23 @@ export class ProductController {
     );
   }
 
+  @Get('details/:sku')
   @ApiOperation({ summary: 'Get product details' })
   @ApiResponse({
     status: 200,
     description: 'Return the product details',
   })
-  @Get('details/:sku')
-  getProductDetails(@Param() sku: { sku: string }) {
+  async getProductDetails(@Param() sku: { sku: string }) {
     return this.productQueryService.getProductDetails(sku.sku);
   }
 
+  @Get('getProductsByCategory/:categoryId')
   @ApiOperation({ summary: 'Get products by category' })
   @ApiResponse({
     status: 200,
     description: 'Return the products by category',
   })
-  @Get('getProductsByCategory/:categoryId')
+  @UseGuards(JwtAuthGuard)
   async getProductsByCategory(@Param() categoryId: { categoryId: string }) {
     const products = await this.productQueryService.getProductsByCategory(
       categoryId.categoryId,
@@ -75,12 +79,13 @@ export class ProductController {
     return products;
   }
 
+  @Get('getProductsByTags/:tags')
   @ApiOperation({ summary: 'Get products by tags' })
   @ApiResponse({
     status: 200,
     description: 'Return the products by tags',
   })
-  @Get('getProductsByTags/:tags')
+  @UseGuards(JwtAuthGuard)
   async getProductsByTags(
     @Param('tags') tags: string,
     @Query('skip') skip: string = '0',
@@ -95,12 +100,12 @@ export class ProductController {
     return products;
   }
 
+  @Get()
   @ApiOperation({ summary: 'Get products' })
   @ApiResponse({
     status: 200,
     description: 'Return the products',
   })
-  @Get()
   async getProducts(
     @Query('pages', ParseIntPipe) pages?: number,
     @Query('limit', ParseIntPipe) limit?: number,

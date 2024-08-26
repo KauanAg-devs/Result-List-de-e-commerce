@@ -49,7 +49,7 @@ export default function Cart(){
 
                     {shoppingCart.products.map((product) => {
                       return (
-                       <div kwey={product.sku} className="flex flex-col lg:flex-row mt-10 w-full justify-between items-center px-2">
+                       <div key={product.sku} className="flex flex-col lg:flex-row mt-10 w-full justify-between items-center px-2">
                             <img src={product.image} alt={product.title} className="rounded-lg w-20 h-20 md:w-24 md:h-24"/>
                             <p className="text-gray-500 text-xs md:text-base mt-2 md:mt-0">{product.name}</p>
                             <p className="text-gray-500 text-xs md:text-base mt-2 md:mt-0">{formatPrice(String(parseFloat(product.price)))}</p>

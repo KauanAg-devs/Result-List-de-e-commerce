@@ -14,10 +14,10 @@ export default function HeaderAccountLinks({ ocult }: HeaderAccountLinksProps) {
   
   return (
     <div className="w-1/3 max-w-screen-lg mx-auto flex justify-center items-center py-4 space-x-4 md:space-x-6 lg:space-x-8">
-      <img src={AccountLogo} alt="Account" className="w-6 h-6 md:w-8 md:h-8 lg:w-8 lg:h-8" />
-      <img src={IconSearch} alt="Search" className={`${ocult?.includes('search') ? 'hidden' : 'block'} w-6 h-6 md:w-8 md:h-8 lg:w-8 lg:h-8`}/>
-      <img src={HeartImage} alt="Heart" className={`${ocult?.includes('feedback') ? 'hidden' : 'block'} w-6 h-6 md:w-8 md:h-8 lg:w-8 lg:h-8`}/>
-      <img src={ShoppingCartImage} onClick={()=> setShowShoppingCart(prev => !prev)} alt="Cart" className="w-6 h-6 md:w-8 md:h-8 lg:w-8 lg:h-8" />
+      <img src={AccountLogo} alt="Account" className="cursor-pointer w-6 h-6 md:w-8 md:h-8 lg:w-8 lg:h-8" />
+      <img src={IconSearch} alt="Search" className={`cursor-pointer ${ocult?.includes('search') ? 'hidden' : 'block'} w-6 h-6 md:w-8 md:h-8 lg:w-8 lg:h-8`}/>
+      <img src={HeartImage} alt="Heart" className={`cursor-pointer ${ocult?.includes('feedback') ? 'hidden' : 'block'} w-6 h-6 md:w-8 md:h-8 lg:w-8 lg:h-8`}/>
+      <img src={ShoppingCartImage} onClick={()=> setShowShoppingCart(prev => !prev)} alt="Cart" className="cursor-pointer w-6 h-6 md:w-8 md:h-8 lg:w-8 lg:h-8" />
       
       {showShoppingCart && <ShoppingCart 
         setShowShoppingCart={setShowShoppingCart}

@@ -8,6 +8,7 @@ import { ProductsImages } from "./ProductsImages";
 import { ProductInfo } from "./ProductInfo";
 import { RelatedProducts } from "./RelatedProducts";
 import {ShoppingCart} from "../../../components/ShoppingCart/ShoppingCart";
+import { getAccessTokenFromCookies } from "../../../utils/getAcessTokenFromCookies";
 
 export type ProductDetailsType = {
   categoryId: string;
@@ -32,7 +33,12 @@ export function Main(): JSX.Element {
   const getProductsByCategory = async (categoryId: string) => {
     if (!categoryId) return [];
     try {
-      const response = await fetch(`http://localhost:3000/product/getProductsByCategory/${encodeURIComponent(categoryId)}`);
+      const accessToken = getAccessTokenFromCookies()
+      const response = await fetch(`http://localhost:3000/product/getProductsByCategory/${encodeURIComponent(categoryId)}`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },  
+      });
       if (!response.ok) throw new Error('Failed to fetch products');
       return await response.json();
     } catch (err) {
