@@ -70,30 +70,6 @@ export class AuthController {
     return res.json({ message: 'Logged in successfully' });
   }
 
-  @ApiOperation({ summary: 'Logout' })
-  @ApiResponse({
-    status: 200,
-    description: 'Logged out successfully',
-  })
-  @Post('logout')
-  async logout(@Res() res: Response) {
-    res.cookie('accessToken', '', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      expires: new Date(0),
-    });
-
-    res.cookie('refreshToken', '', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      expires: new Date(0),
-    });
-
-    return res.json({ message: 'Logged out successfully' });
-  }
-
   @ApiOperation({ summary: 'Refresh' })
   @ApiResponse({
     status: 200,

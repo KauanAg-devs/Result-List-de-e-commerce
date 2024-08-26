@@ -6,15 +6,15 @@ import { SkuModule } from './sku/sku.module';
 import { CategoryModule } from './category/category.module';
 import { TagsModule } from './tags/tags.module';
 
+const userRelatedModules = [UserModule, AuthModule];
+const productRelatedModules = [
+  ProductModule,
+  SkuModule,
+  CategoryModule,
+  TagsModule,
+];
 @Module({
-  imports: [
-    UserModule,
-    AuthModule,
-    ProductModule,
-    SkuModule,
-    CategoryModule,
-    TagsModule,
-  ],
+  imports: [...userRelatedModules, ...productRelatedModules],
   controllers: [],
   providers: [],
 })

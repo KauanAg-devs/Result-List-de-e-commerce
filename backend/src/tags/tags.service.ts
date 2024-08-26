@@ -22,17 +22,4 @@ export class TagsService {
       }),
     );
   }
-
-  async findAllTags() {
-    return this.prisma.tag.findMany();
-  }
-  findAll() {
-    return this.prisma.tag.findMany();
-  }
-
-  findOne(id: string) {
-    return this.prisma.tag.findUnique({
-      where: { id },
-    });
-  }
 }

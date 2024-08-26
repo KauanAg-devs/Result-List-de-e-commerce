@@ -13,7 +13,9 @@ export class CategoryService {
   }
 
   async findOrCreateCategory(categoryName: string) {
-    let category = await this.findOne(categoryName.toLowerCase());
+    let category = await this.prisma.category.findUnique({
+      where: { name: categoryName.toLowerCase() },
+    });
 
     if (!category) {
       category = await this.create({ name: categoryName });
@@ -24,11 +26,5 @@ export class CategoryService {
 
   findAll() {
     return this.prisma.category.findMany();
-  }
-
-  findOne(name: string) {
-    return this.prisma.category.findUnique({
-      where: { name },
-    });
   }
 }

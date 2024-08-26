@@ -1,25 +1,26 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Param,
   ParseIntPipe,
   Post,
   Query,
 } from '@nestjs/common';
-import { ProductService } from './product.service';
 import { ProductDto } from './product.dto';
 import { CategoryService } from 'src/category/category.service';
 import { SkuService } from 'src/sku/sku.service';
 import { TagsService } from 'src/tags/tags.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ProductQueryService } from './product.query.service';
+import { ProductCreationService } from './product.creation.service';
 
 @ApiTags('product')
 @Controller('product')
 export class ProductController {
   constructor(
-    private productService: ProductService,
+    private productQueryService: ProductQueryService,
+    private productCreationService: ProductCreationService,
     private categoryService: CategoryService,
     private skuService: SkuService,
     private tagsService: TagsService,
@@ -43,7 +44,7 @@ export class ProductController {
 
     const sku = this.skuService.generateSku(name, categoryName, color, size);
 
-    return this.productService.createProduct(
+    return this.productCreationService.createProduct(
       productDto,
       category,
       sku,
@@ -58,7 +59,7 @@ export class ProductController {
   })
   @Get('details/:sku')
   getProductDetails(@Param() sku: { sku: string }) {
-    return this.productService.getProductDetails(sku.sku);
+    return this.productQueryService.getProductDetails(sku.sku);
   }
 
   @ApiOperation({ summary: 'Get products by category' })
@@ -68,7 +69,7 @@ export class ProductController {
   })
   @Get('getProductsByCategory/:categoryId')
   async getProductsByCategory(@Param() categoryId: { categoryId: string }) {
-    const products = await this.productService.getProductsByCategory(
+    const products = await this.productQueryService.getProductsByCategory(
       categoryId.categoryId,
     );
     return products;
@@ -87,7 +88,7 @@ export class ProductController {
     const tagsArray = tags.split(',');
     const skipNumber = parseInt(skip, 10);
 
-    const products = await this.productService.getProductsByTags(
+    const products = await this.productQueryService.getProductsByTags(
       tagsArray,
       isNaN(skipNumber) ? 0 : skipNumber,
     );
@@ -107,24 +108,15 @@ export class ProductController {
     @Query('order') order?: 'asc' | 'desc',
     @Query('categoryId') categoryId?: string,
   ) {
-    const { products, totalProducts } = await this.productService.getProducts(
-      pages,
-      limit,
-      orderBy,
-      order,
-      categoryId,
-    );
+    const { products, totalProducts } =
+      await this.productQueryService.getProducts(
+        pages,
+        limit,
+        orderBy,
+        order,
+        categoryId,
+      );
 
     return { products, totalProducts };
-  }
-
-  @ApiOperation({ summary: 'Delete a product' })
-  @ApiResponse({
-    status: 200,
-    description: 'The product has been successfully deleted',
-  })
-  @Delete('deleteAll')
-  async deleteAllProducts() {
-    await this.productService.deleteAllProducts();
   }
 }
