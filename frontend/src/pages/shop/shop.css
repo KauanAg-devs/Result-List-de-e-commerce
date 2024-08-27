@@ -8,8 +8,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background: url('https://s3-alpha-sig.figma.com/img/1461/f3d6/ff74c027a1888544144abe4be6e02cbf?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XwBZ5A86lKOvBmJBnSiqrsTAdIdd-IHbqdnX1Fc44qvNF-0rvrI5YkNtgJTF2UCJO-0imJfC2fEPlmPzoC9sp-DE6o68-I0vreQgBsLnlDfW-mNnpqPP4EfsM7umEyUx2NkkuNPr~DB1zdHot0ESY~lzTadVQSRoSNgZPhHqtxLd9JeJ1sglSRNspysdUB5ST49RLAL9qwT4-JLK~oXux2tY2SnFaSAS1w2joG9b1kRaNKrtoM7XpCXoYNndyxrCJl0bX3pEp0DtlP9uaJlgXIhoLZtbnk7f7iM5NWkclLtyIntoOf4qXI5gkKBHHVD759pb8~apIPQTL~7rxy2yDw__') no-repeat center center;
+  background: url('../../images/navigation.svg') no-repeat center center;
   background-size: cover;
-  filter: blur(3px);
   z-index: 0; 
 }
